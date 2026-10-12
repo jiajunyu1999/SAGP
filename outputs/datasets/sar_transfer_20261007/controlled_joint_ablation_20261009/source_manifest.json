@@ -1,0 +1,26 @@
+{
+  "sha256": {
+    "analysis/controlled_joint_ablation_20261009.py": "b70d3935e1aeadb53ca929cce1337f6e8529da45abe699b6a9a12f12ca13213a",
+    "analysis/summarize_controlled_joint_ablation_20261009.py": "2b3b179e3980f63f921e65bb048da63c6cbc6b2ae2909c62499e9674b4472af6",
+    "analysis/plot_controlled_joint_ablation_20261009.py": "50eb6bc450768c304098419019b7e57347616114608b011a325f0918dc3e27c8",
+    "analysis/train_joint_response_field_20261007.py": "e5466283642d80e5ffb54841895f1029b975eadd17cce8abca70a76c81e7507d",
+    "analysis/train_known_monotone_response_20261007.py": "862563da9757a1fbcde028135c9774cfc3c796748631358fb3f459d7401d5172",
+    "analysis/monotone_response_gp_20261007.py": "c1baa14c0d22334bbd858c47a4d1b0e534b960bf9d65491b7cd4e73f19f72132",
+    "analysis/conditional_neural_gp_20261007.py": "34cea4cd5e74c1e96c064944743ca644c8a35873d47db2152d6cc2b27681f6e1",
+    "analysis/neural_response_field_20261007.py": "ff327848d05966f33e3f8b1c91926f4221bda4e7233fcf9517362de2a638ca4e",
+    "analysis/train_monotone_response_20261007.py": "225bc2980869b301ccb290a54cf7729ae525deb151486d81736385e99252e1cc",
+    "analysis/train_known_response_field_20261007.py": "0f296ab99676149ca46db1322f30dc23731877d6823d057d183af3c27f0880c8",
+    "analysis/response_distribution_decisions_20261007.py": "b4d3c16f342d16f384f2d3435b486dd31ff945960095984cc9d4b41516397da8",
+    "analysis/meta_gp_sar_20261007.py": "66d13a9d3e35550b1d8d8c5a7c12a09574b79062530d9e7d9d9ba9ef3244081d",
+    "analysis/prepare_sar_transfer_20261007.py": "ed9ce2d7ebbf763d8f056f91ece160610d90a7f629634a65edf9a2905d1a888b",
+    "analysis/audit_response_field_20261007.py": "b9a8b5c7572fdef4dfe795eabd0caf84dd2bcc2b4f7ab7a76006875412395c6d",
+    "analysis/publication_palette_20261009.py": "a391d489a35bb9df108e666c956fbcfb3ace4fb3a9e030bedac67caefd1c1646",
+    "tests/test_controlled_joint_ablation.py": "bd9e587425ef3c007268936a0b831de9e289b089567a1afdcc14b662480829f7",
+    "analysis/make_controlled_ablation_appendix_20261009.py": "0f17fc0005edd3766d4d335cbf13be7b0223e0609fd0921bc83249136992ea49",
+    "analysis/diagnose_frozen_contrast_covariance_20261009.py": "4eda04f4d978d9d89fc502a665640b2c8eb8a8bdb88bdeec2be7a0e1be66c3b5"
+  },
+  "verification": "Seven model/kernel/variance/AP/paired-component invariants passed by direct test-function execution.",
+  "fitted_training_source": "frozen_sources/original_fitted_training_source_20261009.py",
+  "fitted_training_source_sha256": "5b23e7772046a3a641275e5599ba410083309259048f114fd33548ff1e624291",
+  "training_source_revision": "Post-fit correction of a parameter-count comment only; model code and numeric behavior unchanged."
+}
