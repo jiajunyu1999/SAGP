@@ -277,9 +277,11 @@ The intended setting is an assay transition with a useful history of compounds m
 
 \section{Implementation and reproducibility}
 
-All known-pair comparisons use the same five scaffold-split seeds (17, 23, 41, 71, 101). Reproducibility records preserve source activity identifiers, preprocessing decisions, reference selections, validation-selected and final checkpoints, per-query predictions, and shared bootstrap weights. Reference interventions and applicability analyses use frozen model weights and matched query sets; the corresponding numerical records support Figures~\ref{fig:reference-evidence}--\ref{fig:applicability}.
+SAGP was implemented in Python using PyTorch and RDKit. Supplementary Methods and the repository README provide the software environment, key hyperparameters, checkpoint-selection rule and commands for reproducing training, evaluation and figures.
 
-Implementation checks confirm reference-permutation invariance, separation of decision-adapter gradients from GP and magnitude parameters, and unchanged posterior moments under readout-only parameter updates. Training episodes and initializations are matched across controlled comparisons using content hashes. Final-step robustness is reported in Supplementary Table~\SIFinalTable.
+\section{Data and Software Availability}
+
+The original bioactivity data were obtained from ChEMBL release 37 (\url{https://doi.org/10.6019/CHEMBL.database.37}). The curated benchmark, five scaffold splits and reference selections, together with SAGP source code, trained model files, per-query predictions, figure source data and reproduction scripts, are publicly available in repository version \texttt{v1.0.0}. The original ChEMBL database is downloaded separately from EMBL--EBI; ChEMBL-derived data retain the Creative Commons Attribution--ShareAlike 3.0 license. Repository files can be downloaded without registration or access approval. The manuscript-aligned version is identified by the \texttt{v1.0.0} tag at \url{https://github.com/jiajunyu1999/SAGP}.
 
 \bibliographystyle{plainnat}
 \bibliography{references}

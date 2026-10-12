@@ -100,6 +100,9 @@ where $t_i$ is the independent sensitivity-risk adapter output. GP moments and c
 
 \subsection{Objectives, optimization and validation selection}
 
+SAGP uses Python 3.11, PyTorch 2.4.0 and RDKit 2025.3.6; the repository records the full dependency versions. AdamW uses learning rates of $3\times10^{-4}$ for the GP and 0.003 for the decision adapters, with weight decay 0.003 and zero, respectively. The batch size is 32, gradient clipping norm is 5, and training lasts 1,000 updates. Eight mean-response knots span $[-1.75,1.75]$. Training support sizes are sampled from $\{1,3,5,10,20,40\}$; evaluation uses at most 100 permitted references per assay pair. The five split seeds are 17, 23, 41, 71 and 101. Initialization and checkpoints every 100 updates are selected using the validation score defined in the main text. The README gives commands for restoring the compressed data, reloading checkpoints, recomputing metrics, training and rebuilding figures.
+
+
 Separate gradient clipping for GP and adapter groups prevents decision gradients from changing GP clipping scales. The initialization checkpoint competes with later checkpoints under the validation rule described in the main text; training completes the full update budget without early stopping.
 
 SAGP stores 1,883 parameters, including 400 contextual decision parameters. The initialization checkpoint remains eligible; it was selected for seed 17, while the other fits selected steps 800, 700, 900 and 900 for seeds 23, 41, 71 and 101. Final-step results are reported separately. 

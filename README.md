@@ -15,6 +15,28 @@ This folder corresponds to the current manuscript: two tasks and six main figure
 - `verification/`: reference audit, recomputed metric comparisons, reloaded-checkpoint prediction checks and file hashes.
 - `source_provenance.json`: original source of collected files. Large files are losslessly compressed under `data_archives/` in blocks no larger than 32 MiB; `python restore_data.py` restores their original paths and verifies SHA-256 checksums. `restored_file_manifest.csv` describes the original restored files; `file_manifest.csv` describes the published tree.
 
+## Manuscript version and access
+
+The manuscript-aligned release is tagged [`v1.0.0`](https://github.com/jiajunyu1999/SAGP/tree/v1.0.0). Original data: [ChEMBL 37, DOI 10.6019/CHEMBL.database.37](https://doi.org/10.6019/CHEMBL.database.37). ChEMBL-derived data retain [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). Files are publicly downloadable without registration or approval; the original database is obtained separately from EMBL–EBI. This GitHub release has no separately assigned DOI.
+
+## Key implementation settings
+
+SAGP uses Python 3.11, PyTorch 2.4.0 and RDKit 2025.3.6. Full versions are in `requirements-lock.txt` and `environment_versions.json`.
+
+| Setting | Value |
+|---|---|
+| Optimizer | AdamW |
+| GP learning rate / weight decay | 0.0003 / 0.003 |
+| Decision-adapter learning rate / weight decay | 0.003 / 0 |
+| Batch size / clipping norm | 32 / 5 |
+| Training updates | 1,000 |
+| Structured mean | Eight knots spanning −1.75 to 1.75 |
+| Training references per episode | Sampled from 1, 3, 5, 10, 20, 40 |
+| Evaluation references | At most 100 per assay pair; fixed random state 17 |
+| Scaffold-split seeds | 17, 23, 41, 71, 101 |
+| Checkpoint candidates | Initialization and every 100 updates |
+| Validation score | Mean of Task 1/2 AP and within-pair AUROC, minus 0.1 × the sum of Task 1/2 macro MAE |
+
 ## Reproduce existing results
 
 Use Python 3.11 and the versions in `requirements-lock.txt`. Run commands from this folder; preserve the original numerical environment when reconstructing classical controls.
