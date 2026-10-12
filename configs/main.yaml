@@ -1,0 +1,112 @@
+# 研究配置规范；实现对应 Python 模块之后才能运行。当前 results_status=not_run。
+project:
+  name: compound_conditioned_assay_disagreement
+  release: 37
+  plan_version: '1.0'
+  seed: 17
+  results_status: complete_retrospective_benchmark
+
+data:
+  endpoint_primary: IC50
+  endpoint_external: Ki
+  target_type: SINGLE PROTEIN
+  target_tax_id: 9606
+  confidence_score: 9
+  standard_relation: '='
+  standard_units: nM
+  assay_type_main: B
+  identity_mode: stereo_preserving_parent
+  merge_tautomers_for_labels: false
+  group_tautomers_for_split: false
+  exclude_known_cell_or_organism_context: true
+  exclude_data_validity_comments: true
+  allowed_data_validity_comments: [Manually validated]
+  unknown_context_policy: keep_flag_and_strict_sensitivity
+  variant_policy: exclude_known_mismatch_keep_unknown_flag
+  duplicate_policy: provenance_aware
+
+labels:
+  primary: raw_abs_delta_ge_1
+  primary_threshold_log10: 1.0
+  sensitivity_thresholds_log10: [0.5, 1.0, 1.5]
+  include_gray_zone_in_primary: true
+  support_min_for_offset: 10
+  residual_regression: true
+  residual_classification_threshold: 1.0
+  residual_thresholds_log10: [0.5, 1.0, 1.5]
+  crossfit_training_offset: true
+
+split:
+  main: family_disjoint
+  secondary: [scaffold_disjoint, new_assay_new_family]
+  ratios: [0.60, 0.15, 0.10, 0.15]
+  partitions: [train, tune, calibration, test]
+  # Prespecified grouped-split confirmation seeds. Seed 17 is retained for
+  # continuity with the frozen pilot; the other four are independent repeats.
+  seeds: [17, 23, 41, 71, 101]
+  global_family_grouping_across_targets: true
+  source_grouping: document_and_informative_exact_protocol
+
+features:
+  molecule: morgan_plus_fixed_descriptors
+  morgan_radius: 2
+  morgan_bits: 2048
+  include_chirality: true
+  assay_text: tfidf_svd
+  tfidf_ngram_range: [1, 2]
+  tfidf_max_features: 10000
+  svd_components: 128
+  clean_assay_text: true
+  assay_feature_mode: clean_text_and_structured
+  pair_encoding: mean_absdiff_product
+  allow_assay_id: false
+  allow_document_id: false
+  allow_measured_activity_features: false
+  fit_preprocessors_on: train_only
+  optional_frozen_text_model: sentence-transformers/all-MiniLM-L6-v2
+
+training:
+  method: GINEAssayNet
+  method_architecture: single edge-aware GINE with atom and bond features, LayerNorm, context-conditioned readout, and within-pair ranking loss
+  protein_encoder: not used by GINEAssayNet
+  models: [B0, B1, B2, B3, B4, B5, B5-U, B6, B7, B8]
+  optional_models: [BioContextGINE]
+  pair_weighting: inverse_pairs_per_molecule_target_endpoint
+  xgb_search_budget: 12
+  rf_search_budget: 6
+  n_jobs: 8
+  use_gpu: false
+  smote: false
+  refit_with_calibration_data: false
+
+calibration:
+  method: sigmoid
+  fit_on: calibration_only
+
+metrics:
+  primary: target_macro_average_precision
+  secondary: [auroc, brier, log_loss, within_pair_auroc]
+  report_episode_micro: true
+  bootstrap_unit: target
+  bootstrap_sensitivity_unit: chemical_family
+  bootstrap_iterations: 2000
+  pair_min_test_n: 10
+  pair_min_positive: 3
+  pair_min_negative: 3
+benchmarks:
+  track_a_min_shared: 30
+  track_a_preferred_min_shared: 50
+  track_a_primary_metric: pair_macro_auroc_and_ap
+  track_b_primary_metric: target_macro_ap
+
+application:
+  retest_budget_fractions: [0.05, 0.10, 0.20]
+  reference_assay_selection: true
+  retention_fractions: [0.25, 0.50, 0.75, 1.00]
+  within_pair_min_test_n: 10
+
+integrity:
+  stop_on_leakage: true
+  no_synthetic_results_in_paper: true
+  immutable_raw_data: true
+  require_claim_ledger: true
