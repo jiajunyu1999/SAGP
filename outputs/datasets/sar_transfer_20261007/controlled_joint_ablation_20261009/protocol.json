@@ -1,0 +1,36 @@
+{
+  "seeds": [
+    17,
+    23,
+    41,
+    71,
+    101
+  ],
+  "models": [
+    "task1_only",
+    "task2_only",
+    "joint",
+    "no_molecular_residual",
+    "no_monotone_mean",
+    "no_contrast_covariance",
+    "shared_multihead"
+  ],
+  "steps": 1000,
+  "batch_size_per_loss": 32,
+  "training_budgets": [
+    1,
+    3,
+    5,
+    10,
+    20,
+    40
+  ],
+  "inference_reference_cap": 100,
+  "optimizer": "AdamW lr=0.0003 weight_decay=0.003 clip=5",
+  "checkpoints": "0 and every100 steps; no early stopping",
+  "selection": "same mean of validation Task1/2 AP and pairAUROC minus0.1 sum macroMAEs for all models; also report final-budget checkpoints",
+  "warm_start": "same root-shift-only conditional_monotone checkpoint per seed; structural ablations change the forward function",
+  "single_task_interpretation": "A/B vs C estimates benefit from additional task supervision, not equal-label information",
+  "multihead_interpretation": "shared GP/neural reference encoder with independent task moment heads (+58 parameters); matched labels, root pool, references and steps; not a GP-free neural comparator",
+  "code_sha256": "5b23e7772046a3a641275e5599ba410083309259048f114fd33548ff1e624291"
+}
