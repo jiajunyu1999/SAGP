@@ -1,0 +1,29 @@
+{
+  "seeds": [
+    17,
+    23,
+    41,
+    71,
+    101
+  ],
+  "tasks": [
+    1,
+    2
+  ],
+  "feature_pipeline": "deep_three_tasks prepare_task1/2; no reference edge retrieval",
+  "linear": {
+    "classification": "LogisticRegression",
+    "C": 1.0,
+    "max_iter": 1500,
+    "regression": "Ridge",
+    "alpha": 10.0
+  },
+  "random_forest": {
+    "n_estimators": 200,
+    "max_depth": 12,
+    "min_samples_leaf": 10,
+    "max_features": "sqrt"
+  },
+  "selection": "Fixed settings, no test hyperparameter selection",
+  "script_sha256": "c65faf6a14789ef4784e1146ffaa9c1f644ca04379562b486af542a85af0a256"
+}
