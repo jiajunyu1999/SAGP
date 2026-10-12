@@ -1,0 +1,22 @@
+{
+  "reference": "ref.png; layout only",
+  "layout": "three rows; five curation modules; one shared GP and two task readouts; four observed-data panels",
+  "scientific_corrections": "153468 and79810 are molecule-pair observations, not assay-pair counts; fingerprints/source potency/references are inputs, no assay-category/ESM features; two sensitivity heads; support curve is survival count",
+  "molecular_structures": "Single-colour vector circles and lines preserve validated ChEMBL molecular connectivity; elements and bond order are intentionally abstracted; no labels, gradients or highlights in molecular icons",
+  "text_bounds_check": "passed",
+  "example_pair": "pair_e69a1fb0e095fe4e8486dc59",
+  "molecules": 559,
+  "analogue_comparisons": 2874,
+  "illustrative_molecule_pair": [
+    "id_3d3334fc19c43e5d234a8ae9",
+    "id_a8a6ef290c8fb84dd3f615b6",
+    "id_7ac8e6c3c90f4359c42c42a1",
+    "id_5ee403f25e2193536224ebf3",
+    "id_23d4f2dfa22bf8e3d06c15a9",
+    "id_7bc5998f61446fc442953024"
+  ],
+  "illustrative_pair_assay_pair_id": "pair_1239ea7f2b52b1c322ad87c1",
+  "illustrative_pair_support": 22,
+  "molecule_pair_tanimoto": 0.75,
+  "script_sha256": "fe435632cdb8115775888b242f0e615ea219e27f5aff2ce13a60b3367b705cae"
+}

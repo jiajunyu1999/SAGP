@@ -1,0 +1,7 @@
+{
+  "panels": "a-b split AP violins; c paired bootstrap benefit violins; d-f pair evidence; g-i separate-task response boxplots",
+  "script_sha256": "3ce7815fdc8d09268c9cf4b6845533b453b16c5afdfcdc738f4bf1d2bf2cf67d",
+  "no_synthetic_observations": true,
+  "violin_a_b": "five actual dependent split observations; KDE, median and IQR",
+  "violin_c": "2000 existing paired component-bootstrap draws per task/metric, excluding row 0 original estimate; original estimate and percentile 95% interval overlaid; resamples are not independent experimental observations"
+}

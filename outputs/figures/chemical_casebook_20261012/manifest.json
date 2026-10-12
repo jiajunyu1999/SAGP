@@ -1,0 +1,30 @@
+{
+  "cases": [
+    {
+      "case": "ROCK2",
+      "n": 13,
+      "mae": 0.105680360015568,
+      "auroc": 0.825
+    },
+    {
+      "case": "ER beta",
+      "n": 16,
+      "mae": 0.3373785192580756,
+      "auroc": 0.84375
+    },
+    {
+      "case": "ALDH1A1",
+      "n": 20,
+      "mae": 0.26845536292834243,
+      "auroc": 0.8351648351648351
+    }
+  ],
+  "selection": "Same six retrospectively selected molecules as previous casebook; no further performance filtering.",
+  "structures": "Exact ChEMBL37 activity-linked canonical structures; stereochemistry and bond orders retained. No experimental conformation or binding pose inferred.",
+  "fingerprint": "2048-bit radius-2 chirality-aware Morgan; similarity is descriptive, not a single-edit/MMP assertion.",
+  "sources": {
+    "outputs/figures/sensitivity_focus_20261012/selected_case_predictions.csv": "2e63930d2d113689c1b86170eb2dc5b6b6de8736eae73f3ce23fe9d9f7e61967",
+    "outputs/figures/sensitivity_focus_20261012/case_pair_query_predictions_seed17.csv": "cc94fc80a5c3111acbc5ed14e6ef78234b0c206217211c0590d24f200bb47ff3"
+  },
+  "script_sha256": "4c716cf0b26e6a4bc9107e2b65af82110960a788082dc438252bb831ed5f1e46"
+}

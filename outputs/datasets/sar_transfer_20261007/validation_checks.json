@@ -1,0 +1,13 @@
+{
+  "unique_comparison_ids": true,
+  "similarity_threshold": true,
+  "shared_molecule_support": true,
+  "four_distinct_measurements": true,
+  "label_sign": true,
+  "replicate_gap_margin": true,
+  "trace_A_1": true,
+  "trace_A_2": true,
+  "trace_B_1": true,
+  "trace_B_2": true,
+  "all_required_split_overlap_counts_zero": true
+}

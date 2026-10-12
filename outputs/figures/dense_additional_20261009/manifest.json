@@ -1,0 +1,15 @@
+{
+  "data": "actual query/assay-pair predictions; no pseudo-replicates",
+  "reference_points": "five dependent scaffold evaluations",
+  "pair_points": "average available split-specific metrics for each unique pair",
+  "panels": "Figure 5 a-f reference evidence; Figure 6 a-d selective error and reliability",
+  "intervals": "2000 paired assay/document-component bootstrap draws; fixed-model conditional",
+  "selection": "20%ceil per pair by variance; every pair represented",
+  "source_sha256": {
+    "outputs/datasets/sar_transfer_20261007/additional_frozen_analyses_20261009/query_support_audit.csv": "7a3e9bb8473ece68b335af7fc06dccf8b727472be5d99611cba98678b6fdac93",
+    "outputs/datasets/sar_transfer_20261007/additional_frozen_analyses_20261009/reference_interventions/metrics_by_seed.csv": "d5e354e5988c30ba496b6fac146a727124688d899d1aa0f5b33b2c6b4f47016b",
+    "outputs/datasets/sar_transfer_20261007/additional_frozen_analyses_20261009/reference_interventions/all_pair_errors.csv": "125f582d28f6effe736e3123fc11078f068b9e84fff41db497b21a08dfe0b5ba",
+    "outputs/datasets/sar_transfer_20261007/additional_frozen_analyses_20261009/reference_interventions/paired_component_intervals.csv": "ba08ec911653dd083b4e894c416ca7da87400199c27145fedb6fc67cf02873a0",
+    "analysis/make_split_evidence_figures56_20261012.py": "d753ed528b4c78309927c8df89ed1cf387d4c1db7435f37798e9a9a9d77115c1"
+  }
+}
