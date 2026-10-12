@@ -1,0 +1,23 @@
+{
+  "task": "Given two similar molecules with >=0.5 pIC50 robust separation in assay A, predict whether the same ordering with >=0.3 pIC50 robust separation remains in assay B.",
+  "cohort_eligibility": "Only structure, source assay-A measurements and pair support; no assay-B measurements.",
+  "outcome": "Loss includes reversal, attenuation or uncertain replicate interval; reversal is also stored separately.",
+  "all_comparisons": 73950,
+  "loss": 14743,
+  "reversed": 3711,
+  "source_sha256": "52ac04143bb2abc4582b706fb04d2b5f471d3cb2c8499756c852ce1662380082",
+  "code_sha256": "c5c2e5d545857cbfc4c30f24ca25bf58ba75df278d3ceb6716cda6f3cdd70fa9",
+  "seeds": [
+    17,
+    23,
+    41,
+    71,
+    101
+  ],
+  "thresholds": {
+    "tanimoto": 0.7,
+    "shared_molecules": 5,
+    "A_margin_log10": 0.5,
+    "B_retention_margin_log10": 0.3
+  }
+}
