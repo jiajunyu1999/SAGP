@@ -1,0 +1,38 @@
+{
+  "model": "Single GP,9-slope monotone potency-axis mean,reference-conditioned neural warp/covariance vsglobal warp control",
+  "training": "Root signed-shift episodes,K5/10/20/40,64queries;exclude query scaffold from all references",
+  "selection": "All checkpoints selected by validation root shift NLL;fixed candidate architectures;no test selection",
+  "evaluation": "Original known-pair task1/2 cohorts;one shared field predicts both;no few-shot warm-start",
+  "seeds": [
+    41,
+    71,
+    101
+  ],
+  "models": [
+    "global_monotone",
+    "conditional_monotone"
+  ],
+  "max_steps": 1600,
+  "test_evaluated": true,
+  "code_sha256": "862563da9757a1fbcde028135c9774cfc3c796748631358fb3f459d7401d5172",
+  "completed_seeds": [
+    17,
+    23,
+    41,
+    71,
+    101
+  ],
+  "decisions": "Absolute-residual median,not expectation,for both probabilistic neural field and Gaussian calibration control;AP scores unchanged",
+  "tested_models": [
+    "global_monotone",
+    "conditional_monotone"
+  ],
+  "completed_test_seeds": [
+    17,
+    23,
+    41,
+    71,
+    101
+  ],
+  "training_invocation_note": "seeds/models fields record the most recent training call; tested_models/completed_test_seeds identify completed five-split test cohorts."
+}

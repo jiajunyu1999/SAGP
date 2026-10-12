@@ -1,0 +1,24 @@
+{
+  "training": "All paired IC50 shift observations in global training scaffolds; no query scaffold in references; one shared signed field yields both task1 and task2",
+  "selection": "Pair-macro held-out validation SHIFT NLL; no test/classification selection",
+  "root_data": "Molecule shift episodes need3 references outside query scaffold; no analogue-similarity or A-gap eligibility",
+  "evaluation": "Original task1 anchored split and task2 >=30 training molecule cohort unchanged; max100 label-blind historical references per context",
+  "model": "One neural mean GP or one nonneural covariance GP; no model fusion",
+  "seeds": [
+    17,
+    23,
+    41,
+    71,
+    101
+  ],
+  "steps": 3000,
+  "code_sha256": "bfd93708832a1929c5b815bde971aebd4e8cbd1fbe914ee369810a0d75884468",
+  "completed_models": [
+    "fixed_tanimoto_gp",
+    "neural_mean_gp"
+  ],
+  "completed_model_seed_fits": 10,
+  "audit": "../models_conditional_neural_gp_20261007/expanded_supervision_audit.json",
+  "source_intervals": "source_bootstrap.json",
+  "numerical_prediction_checks": "All saved test predictions finite, probability in [0,1], positive variance and unique query IDs"
+}

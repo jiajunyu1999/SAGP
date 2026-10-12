@@ -1,0 +1,137 @@
+[
+  {
+    "source_components": 304,
+    "replicates": 1000,
+    "difference": {
+      "AP": 0.013947861396454509,
+      "pair_macro_AUROC": -0.003907900995964262,
+      "macro_MAE": -0.003424467658441499
+    },
+    "bootstrap_95_CI": {
+      "AP": [
+        -0.014599837452527114,
+        0.0357022247500479
+      ],
+      "pair_macro_AUROC": [
+        -0.024976592425807957,
+        0.023738505477123667
+      ],
+      "macro_MAE": [
+        -0.014502431106407438,
+        0.009805380207831279
+      ]
+    },
+    "note": "Shared assay/document-component weights across seeds and reference draws; conditional on fitted models and validation selections. Exploratory.",
+    "task": 1,
+    "neural": "neural_mean_gp",
+    "baseline": "threshold_monotone"
+  },
+  {
+    "source_components": 304,
+    "replicates": 1000,
+    "difference": {
+      "AP": -0.009317254179145773,
+      "pair_macro_AUROC": -0.01763385577976988,
+      "macro_MAE": 0.017896245863386378
+    },
+    "bootstrap_95_CI": {
+      "AP": [
+        -0.02814938239801419,
+        0.006510176980068602
+      ],
+      "pair_macro_AUROC": [
+        -0.0341626826583952,
+        -0.004294523146591799
+      ],
+      "macro_MAE": [
+        0.005035027183953686,
+        0.028010423221818705
+      ]
+    },
+    "note": "Shared assay/document-component weights across seeds and reference draws; conditional on fitted models and validation selections. Exploratory.",
+    "task": 1,
+    "neural": "neural_mean_gp",
+    "baseline": "fixed_tanimoto_gp"
+  },
+  {
+    "source_components": 135,
+    "replicates": 1000,
+    "difference": {
+      "AP": 0.06960629614209776,
+      "pair_macro_AUROC": -0.015248778080827122,
+      "macro_MAE": -0.05218104119034195
+    },
+    "bootstrap_95_CI": {
+      "AP": [
+        0.014286656084185336,
+        0.11453849179900626
+      ],
+      "pair_macro_AUROC": [
+        -0.028555585138824474,
+        0.0029351055595837386
+      ],
+      "macro_MAE": [
+        -0.0833243514215095,
+        -0.011537628388350494
+      ]
+    },
+    "note": "Shared assay/document-component weights across seeds and reference draws; conditional on fitted models and validation selections. Exploratory.",
+    "task": 2,
+    "neural": "neural_mean_gp",
+    "baseline": "fixed_tanimoto_gp"
+  },
+  {
+    "source_components": 135,
+    "replicates": 1000,
+    "difference": {
+      "AP": 0.0753369079127365,
+      "pair_macro_AUROC": 0.05511663584389899,
+      "macro_MAE": 0.023991158446145917
+    },
+    "bootstrap_95_CI": {
+      "AP": [
+        0.02454618349237544,
+        0.14233709989706098
+      ],
+      "pair_macro_AUROC": [
+        0.005897405036286551,
+        0.09487503229472952
+      ],
+      "macro_MAE": [
+        -0.03335361107389113,
+        0.06099606273855354
+      ]
+    },
+    "note": "Shared assay/document-component weights across seeds and reference draws; conditional on fitted models and validation selections. Exploratory.",
+    "task": 2,
+    "neural": "neural_mean_gp",
+    "baseline": "local_knn"
+  },
+  {
+    "source_components": 135,
+    "replicates": 1000,
+    "difference": {
+      "AP": -0.010575297491561298,
+      "pair_macro_AUROC": 0.01971641681343313,
+      "macro_MAE": 0.0529879338257204
+    },
+    "bootstrap_95_CI": {
+      "AP": [
+        -0.03449073895312835,
+        0.013341269049360028
+      ],
+      "pair_macro_AUROC": [
+        -0.0299183890773912,
+        0.05193842765409877
+      ],
+      "macro_MAE": [
+        0.018400333025132148,
+        0.0821275988897954
+      ]
+    },
+    "note": "Shared assay/document-component weights across seeds and reference draws; conditional on fitted models and validation selections. Exploratory.",
+    "task": 2,
+    "neural": "neural_mean_gp",
+    "baseline": "calibrated_attention"
+  }
+]
