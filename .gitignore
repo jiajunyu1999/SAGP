@@ -1,0 +1,14 @@
+data/raw/
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.env.*
+paper/build/
+/data/interim/extracted_activities.csv
+/data/interim/identity_standardization_cache.parquet
+/data/processed/curated_measurements.csv
+/data/processed/exclusions.csv
+/data/processed/measurements.parquet
+/data/processed/molecules.csv
+/outputs/audit/controlled_condition_scan_20261007/extracted_condition_spans.csv
