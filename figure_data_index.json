@@ -1,0 +1,34 @@
+{
+  "figure1_pipeline": {
+    "figure": "outputs/figures/figure1_pipeline.pdf",
+    "plot_script": "analysis/redraw_figure1_two_tasks_20261012.py",
+    "source_data_directory": "outputs/figures/figure1_two_tasks_20261012"
+  },
+  "figure2_data_audit": {
+    "figure": "outputs/figures/figure2_data_audit.pdf",
+    "plot_script": "analysis/make_two_task_figure2_20261012.py",
+    "source_data_directory": "outputs/figures/figure2_two_tasks_20261012"
+  },
+  "figure3_model_gains": {
+    "figure": "outputs/figures/figure3_model_gains.pdf",
+    "plot_script": "analysis/make_unfiltered_main_figure3_20261012.py",
+    "source_data_directory": "outputs/figures/figure3_unfiltered_main_20261012"
+  },
+  "figure4_casebook": {
+    "figure": "outputs/figures/figure4_casebook.pdf",
+    "plot_script": "analysis/redraw_combined_casebook_20261012.py",
+    "source_data_directory": "outputs/figures/chemical_casebook_20261012"
+  },
+  "figure5_reference_evidence": {
+    "figure": "outputs/figures/figure5_reference_evidence.pdf",
+    "plot_script": "analysis/make_merged_reference_response_20261012.py",
+    "source_data_directory": "outputs/figures/dense_additional_20261009",
+    "panel_c_draws": "outputs/figures/dense_additional_20261009/figure5c_bootstrap_draws.csv",
+    "panel_c_note": "2000 existing paired component-bootstrap draws per task/metric; resamples are not independent observations"
+  },
+  "figure6_applicability_reliability": {
+    "figure": "outputs/figures/figure6_applicability_reliability.pdf",
+    "plot_script": "analysis/make_reliability_figure6_20261012.py",
+    "source_data_directory": "outputs/figures/dense_additional_20261009"
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "models": "frozen selected context_neural",
+  "seeds": [
+    17,
+    23,
+    41,
+    71,
+    101
+  ],
+  "new_fits": 0,
+  "conditions": [
+    [
+      "nested",
+      3
+    ],
+    [
+      "nested",
+      10
+    ],
+    [
+      "nested",
+      30
+    ],
+    [
+      "nested",
+      100
+    ],
+    [
+      "shuffle_shift",
+      100
+    ]
+  ],
+  "bootstrap_draws": 2000,
+  "source_sha256": {
+    "additional_frozen_analyses_20261009/reference_interventions/task1_nested_k30_seed17.csv": "475e892711cc668993fa67226b10ad53603f6081e4833774c8fb04d86c3ce20a",
+    "additional_frozen_analyses_20261009/reference_interventions/task2_shuffle_shift_k100_seed41.csv": "0d6a63cc752b7ef7b51f63775e2dd33f6526f2a6dc220a1b8f66a1bbe1732a38",
+    "additional_frozen_analyses_20261009/reference_interventions/task2_nested_k100_seed101.csv": "851c9da53ef3732bea6f16462fbb29f3d91d3f3c83f1cfeec1eea40c407790b3",
+    "additional_frozen_analyses_20261009/reference_interventions/task2_nested_k3_seed101.csv": "657bd8a2c6d447b3405783f6bb24c0d53fb068c4198896cb0e05318254dbaaac",
+    "additional_frozen_analyses_20261009/reference_interventions/task1_nested_k10_seed71.csv": "fdbbc28ac93ae5d146b3ddee3c5a061cbf1f31042c3133a09435751050132ace",
+    "additional_frozen_analyses_20261009/reference_interventions/task1_nested_k100_seed17.csv": "aa1a790bfb74f6214f375c731779cadd3f7a6e5f850135cc9707106d587e23a8",
+    "additional_frozen_analyses_20261009/reference_interventions/task1_nested_k3_seed101.csv": "a7b36aa010a850d4a43fb4f585c9bab2129f007e36cbdf25efa0c74d65339022",
+    "additional_frozen_analyses_20261009/reference_interventions/task2_nested_k30_seed71.csv": "6c9f0ae1d41aab7c37b171928218240ffec3c87dc7ca3bf73a4cf3ef3f78e149",
+    "additional_frozen_analyses_20261009/reference_interventions/task1_nested_k100_seed41.csv": "f14a7fbf4f7f4470da55a5ebad908f9cd1d9f0a64bbab0d8454e7e8a1f7111b9",
+    "additional_frozen_analyses_20261009/reference_interventions/task1_nested_k3_seed23.csv": "0f4c01891cc4b331d0a6fc730189d6d37b953428a30473325ef5d9d58f396bd1",
+    "additional_frozen_analyses_20261009/reference_interventions/task1_nested_k3_seed17.csv": "947302bd4dfde635dd582db8341ba05bd41239e4fa02e9f7c238c93adf0b3f94",
+    "additional_frozen_analyses_20261009/reference_interventions/task1_nested_k10_seed41.csv": "da0bfc5497bcdc624baa176094085ecc202a5afc54c99c84f35a6c77472e0418",
+    "additional_frozen_analyses_20261009/reference_interventions/task2_shuffle_shift_k100_seed23.csv": "acb9dfdaec5f5de279458b448d3b49ff32ca3abd030c097df4727ca9b1c86f2e",
+    "additional_frozen_analyses_20261009/reference_interventions/task2_nested_k100_seed71.csv": "ee1d3256c16b393881461fa7bc27815b56b47f41fc8a5e7ab31b9e5d3f306dbd",
+    "additional_frozen_analyses_20261009/reference_interventions/task1_nested_k3_seed71.csv": "512ec55ef4d1896e90433dd27ddfb47004d8ffb867b286ff716cb339ab587c37",
+    "additional_frozen_analyses_20261009/reference_interventions/task2_nested_k10_seed41.csv": "8f3e06c7db7a5db2f71707b4a5628a82e4ef52517ef4ded7836d4da751e3e6eb",
+    "additional_frozen_analyses_20261009/reference_interventions/task2_nested_k3_seed17.csv": "e4286f585073a62ff3f7d1c90d7416d200fd4fd1aff1bc8996bfb097ae9030fd",
+    "additional_frozen_analyses_20261009/reference_interventions/metrics_by_seed.csv": "d5e354e5988c30ba496b6fac146a727124688d899d1aa0f5b33b2c6b4f47016b",
+    "additional_frozen_analyses_20261009/reference_interventions/task2_nested_k10_seed17.csv": "dcddccf554337bb5b8804347954a1d9d5d62805aaec9d5d7b3d016ac64ea3034",
+    "additional_frozen_analyses_20261009/reference_interventions/task1_nested_k30_seed71.csv": "293a0ef65fbf0db425d79ebc6866ec35d30d9168ac731f5b8ef60b9db9e762ce",
+    "additional_frozen_analyses_20261009/reference_interventions/task2_nested_k3_seed41.csv": "ee6453ea07431cf6eb29f5bcd478adfced76dc787b3b08ba832e1d158a4ee124",
+    "additional_frozen_analyses_20261009/reference_interventions/task2_nested_k10_seed71.csv": "b2daef847fb6621d0a465da4fdafa777582d3413b02e4bf5499a70460e8d55c0",
+    "additional_frozen_analyses_20261009/reference_interventions/task1_nested_k30_seed101.csv": "a232656736afe67ade0c84f83585fca70c4eb04c6ffedbc63cdbabae548586f5",
+    "additional_frozen_analyses_20261009/reference_interventions/task1_nested_k100_seed101.csv": "9ef7cee79df11fa2d8b4398461d1db80d3b16580ace07772104c4cade3675a2f",
+    "additional_frozen_analyses_20261009/reference_interventions/task2_nested_k100_seed41.csv": "1e8403badacf78d5343fb59f34be8fc819bec37f913597ab2bf09bce34d3038e",
+    "additional_frozen_analyses_20261009/reference_interventions/task1_nested_k100_seed23.csv": "c5310e09f43a85bb80a5e1bf19b0ed350fd99d554692fe83f45ab7175e019fe0",
+    "additional_frozen_analyses_20261009/reference_interventions/task1_nested_k10_seed101.csv": "7b389e40aa0e5d9d6816e99000d43374b5a6193a7714673da82833b41a036b61",
+    "additional_frozen_analyses_20261009/reference_interventions/task2_nested_k100_seed17.csv": "94e510a40aed95e4d6c472258306826a57a88680844f377c9864f40252e1b852",
+    "additional_frozen_analyses_20261009/reference_interventions/task2_nested_k30_seed23.csv": "79339df5f85a13b3de07be9c57414b17dd12d665b14755a4d337f40bec0a86ff",
+    "additional_frozen_analyses_20261009/reference_interventions/task1_nested_k30_seed23.csv": "741fa30f3e491445b0cfd2ea4196623073517decc84aed4b4e0cb833ad9769d3",
+    "additional_frozen_analyses_20261009/reference_interventions/task2_nested_k30_seed101.csv": "91c24a423799dddd1b0d33fac5ef6d31f191d146edcd37e4d623176021579d3b",
+    "additional_frozen_analyses_20261009/reference_interventions/task2_nested_k30_seed17.csv": "81d66f878f858bb7fe383abf97ba5176d9c28f8566d78e603caa3ade729f22e7",
+    "additional_frozen_analyses_20261009/reference_interventions/task2_shuffle_shift_k100_seed71.csv": "b16595d1ffa89d2a4433f0c2d84a9019b05bef105e8183a89035c6a949f4158f",
+    "additional_frozen_analyses_20261009/reference_interventions/task1_shuffle_shift_k100_seed23.csv": "40910b340acddadbf6f9065f6b9eefa68352a2f7431f6d613c3adfbd9494e021",
+    "additional_frozen_analyses_20261009/reference_interventions/task1_nested_k30_seed41.csv": "7f252d162fd20927c3a3c67dc11b3c38f029d255230e78040c38dd5de02d35ee",
+    "additional_frozen_analyses_20261009/reference_interventions/summary.csv": "6d3549570240ec8e5cc48f5f71ae1499e16c8ed1bd74ac4518c6e64619ad3c0d",
+    "additional_frozen_analyses_20261009/reference_interventions/task2_nested_k3_seed23.csv": "5539fdad027663728ca74d46d28725c1769c69adbd2ba269d8e86ff2ce498c83",
+    "additional_frozen_analyses_20261009/reference_interventions/task2_shuffle_shift_k100_seed17.csv": "a694d57657a5961b7d89daf4ef9eb80fae76b1510ae863972f2b7e8e788dedc2",
+    "additional_frozen_analyses_20261009/reference_interventions/task1_shuffle_shift_k100_seed17.csv": "717161dd9ad8c62264bc41df544df1a25ae91d35e151d5db726b91c368963eb2",
+    "additional_frozen_analyses_20261009/reference_interventions/task1_shuffle_shift_k100_seed41.csv": "c784b4ae0d6c04c59eecf89bdcb2fc2c02c275f781c6ca2d93483a4d24c802f5",
+    "additional_frozen_analyses_20261009/reference_interventions/task1_nested_k10_seed17.csv": "ce3a961ec359025e2d8c6b8d6096f154174c00155ce25b418670946ef82884fc",
+    "additional_frozen_analyses_20261009/reference_interventions/task2_nested_k10_seed101.csv": "d5266a9ccc29ef7e8e5ca7d486ac6f5842a12bdb57db016d8dc5fbaf3ad07f7b",
+    "additional_frozen_analyses_20261009/reference_interventions/task2_nested_k100_seed23.csv": "e2e8bbe873f634da4e5e399b9982b2201f6fd94d7260083bd0f2c37cf698a637",
+    "additional_frozen_analyses_20261009/reference_interventions/all_pair_errors.csv": "125f582d28f6effe736e3123fc11078f068b9e84fff41db497b21a08dfe0b5ba",
+    "additional_frozen_analyses_20261009/reference_interventions/task2_nested_k10_seed23.csv": "c763d4eff503d6d9e5ae14138f8b659d361832e487ad56518107715528ed2a6c",
+    "additional_frozen_analyses_20261009/reference_interventions/task1_nested_k3_seed41.csv": "f9044f9175de532278f8b2fc755b992eac7630367acd01472d33efe48e948106",
+    "additional_frozen_analyses_20261009/reference_interventions/task1_nested_k100_seed71.csv": "62540fc2bb6de1510aebaf89fed2af201e3ef9284e81238dba1624eb82af3d3a",
+    "additional_frozen_analyses_20261009/reference_interventions/paired_component_intervals.csv": "ba08ec911653dd083b4e894c416ca7da87400199c27145fedb6fc67cf02873a0",
+    "additional_frozen_analyses_20261009/reference_interventions/task1_shuffle_shift_k100_seed71.csv": "5370763e71b874e7a329de3b3d48e4fde3a66b88203af514448584a1317c627d",
+    "additional_frozen_analyses_20261009/reference_interventions/reference_audit.csv": "64030b056ba94bc17b81bcf0f416d31606b9dd8eafba6c1f48b97e88b369192c",
+    "additional_frozen_analyses_20261009/reference_interventions/task1_nested_k10_seed23.csv": "52ee804f66be79c743554f857a25da6766ccb80083b6e31503eaa70e01c3300b",
+    "additional_frozen_analyses_20261009/reference_interventions/task2_shuffle_shift_k100_seed101.csv": "a2963416692b23d822f87303e08ea15a7364303374bb501ec61cdaa8fb31235c",
+    "additional_frozen_analyses_20261009/reference_interventions/task1_shuffle_shift_k100_seed101.csv": "09017004fa9de60fe025f7b48351efc10d1105ffe3ebc2d3a8457dbbca2903d4",
+    "additional_frozen_analyses_20261009/reference_interventions/task2_nested_k3_seed71.csv": "4b5eed8920c1484a085e706dd7afe81826e20720ac40d5b035d57619ca33c8a8",
+    "additional_frozen_analyses_20261009/reference_interventions/task2_nested_k30_seed41.csv": "50f023d34ee97c5fc2d760c9b6f0a577bdbbfbbefcb24da0727d46e71858b991"
+  },
+  "script_sha256": "abff17221d6db77b1a932280e03ab3b3c3abe94570403659d988c0528afd59e2",
+  "limitations": "post-hoc; one nested-support ordering and one shuffle per split; fixed original train median; conditional pointwise intervals"
+}

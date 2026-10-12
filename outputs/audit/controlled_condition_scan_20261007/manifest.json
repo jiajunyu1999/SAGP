@@ -1,0 +1,19 @@
+{
+  "input_hashes": {
+    "outputs/audit/three_axis_variables_20261005/assay_conditions.csv": "52fc2ca0b41152fc31747adb4f3ad07a8cce91395684a0ddf9f3e8631a0fbd98",
+    "data/processed/pairs.parquet": "ff0a198c77eb5e9e784f3bf8f9f99d4a4672c4f25889b394e32d09c5b0911d40",
+    "data/processed/pairs_Ki.parquet": "e3f5adaaf4201094cd1d27572a62df2ce202ea90eade1a8b5842c28a805c9278"
+  },
+  "code_sha256": "aa823a8829f07e15f3fcb180ffddb92ee914e022f6d0e66e1d361a9d46bf91e1",
+  "exploratory": true,
+  "method": "Same target annotation and same assay document. Whole descriptions identical after replacing exactly one selected span and normalizing whitespace/case. Numeric units normalized for values. Candidate generation uses descriptions only, independent of potency. Each observed comparison holds chemical identity fixed. Presence/absence spans retain the named reagent and all surrounding text. Construct changes hold target annotation, not protein sequence, fixed. Cell-line mentions may be expression hosts, not assay cell types. Missing unreported protocol differences remain uncontrolled. Long multi-protocol descriptions >4000 chars excluded. No causal or out-of-sample predictive claims.",
+  "artifacts": {
+    "extracted_condition_spans.csv": "5e25984cd102184dd69dadc00d75a3162b45df690d514dacafd2703ac50347c2",
+    "observed_controlled_condition_pairs.csv": "afe143ca3aea5e0077582e7bbdf2f69e85b9bed79c135ddfe823ecef53134eb4",
+    "condition_coverage.csv": "e5367a05bd20348d1f68aceb21113becfd60ad913871a2ccb7641f7016feab0b",
+    "selected_non_il3_examples.csv": "20a5afd0b47d4894368977eddda90ad4fa663f05c419d748d85cf5b42f64d91f",
+    "exact_description_candidate_pairs.csv": "0d79c2d72c59614743392dad086d2354ea0205556db5a4d701064c2183b76a39",
+    "conclusions_zh.txt": "e8cb34c1ffc2289356e82d5cfad6d0516cda0f59cd6d31ebbdfe09d8ecd8a579",
+    "observed_controlled_condition_rows.csv": "dcb6b340570bf63c1a56de2889dd1b7477a3bd16c3b7efdd3ff027edc68e72f9"
+  }
+}

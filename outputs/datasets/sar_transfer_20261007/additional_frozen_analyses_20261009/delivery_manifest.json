@@ -1,0 +1,26 @@
+{
+  "PDF_pages": 5,
+  "new_training_fits": 0,
+  "diagnostic_models": 6,
+  "splits": 5,
+  "reference_conditions": 5,
+  "reference_prediction_files": 50,
+  "within_pair_rows": 900,
+  "bootstrap_draws": 2000,
+  "main_manuscript_unchanged": false,
+  "archive": "additional-analyses-20261009.zip",
+  "files": 224,
+  "MiB": 20.63,
+  "sha256": "ab4947d315a51187310c0bd7c96d05ed24533ec3eb116548d08683aca0d3e995",
+  "checks": "prediction cohort and labels identical; full-support predictions reproduced; reference caps verified; PDF refs and archive integrity passed",
+  "main_integrated": true,
+  "main_PDF_pages": 21,
+  "main_figure_numbers": [
+    5,
+    6
+  ],
+  "main_table_number": 7,
+  "plot_style": "dense actual query/pair data; split dots and intervals",
+  "model_weights_unchanged": true,
+  "case_figure_unchanged": true
+}

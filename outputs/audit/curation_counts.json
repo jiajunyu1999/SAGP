@@ -1,0 +1,45 @@
+{
+  "assay_count": 86659,
+  "candidate_rows": 1563556,
+  "count_reconciliation": {
+    "candidate_equals_curated_plus_excluded": true,
+    "candidate_rows": 1563556,
+    "curated_rows": 916331,
+    "excluded_rows": 647225
+  },
+  "curated_rows": 916331,
+  "document_count": 26771,
+  "endpoints": {
+    "IC50": 690683,
+    "Ki": 225648
+  },
+  "excluded_by_reason": {
+    "assay_type": 74839,
+    "data_validity_comment": 16746,
+    "invalid_value_or_unit": 1907,
+    "known_cell_or_organism_context": 21244,
+    "non_exact_relation": 376200,
+    "potential_duplicate": 147515,
+    "unparseable_structure": 8774
+  },
+  "excluded_rows": 647225,
+  "failed_rule_counts_nonexclusive": {
+    "assay_type": 134074,
+    "data_validity_comment": 35371,
+    "invalid_value_or_unit": 53499,
+    "known_cell_or_organism_context": 34567,
+    "non_exact_relation": 376200,
+    "potential_duplicate": 187741,
+    "unparseable_structure": 8774
+  },
+  "family_count": 511515,
+  "identity_count": 538045,
+  "identity_standardization_cache": {
+    "note": "Deterministic SMILES-to-identity cache; missing entries are standardized from raw SMILES.",
+    "path": "/inspire/hdd/global_user/yujiajun-240108120114/project/CLIFF/assay-disagreement-plan/data/interim/identity_standardization_cache.parquet",
+    "rows": 545491,
+    "sha256": "f980a483421f4252dfecb389e0ea1bac94d04e7c6a91f2a0599f98c85c622ba7",
+    "used": true
+  },
+  "target_count": 2884
+}
