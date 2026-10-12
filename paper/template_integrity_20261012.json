@@ -1,0 +1,27 @@
+{
+  "archive_sha256": "1b8586c2b1af44b54f662b4d32b92536feaac7c41e3b7d8d4bbe311a22f06834",
+  "files": {
+    "acs-latex-template.tex": "179c0aaa6e5ca47051dfd5069b578225930db1a3a35ad8b5964b2a19b37fba80",
+    "references.bib": "5d547efd31bf46ac923f88d3e25290d7224aa224e4005c901536789a1f7699e8",
+    "acs-latex-template.pdf": "4f0b20aba90ec359a987f27c6cdb13257d9dc705b0e5f183a3739d1c5dc0d2cb",
+    "figure/figure5_calibration_and_use.pdf": "146fa8c2e24d1c79349eae276094a3231b7f83b68490e2e2de3274267dc57577",
+    "figure/figure6_cases_cd.pdf": "854bf3d5ebb57a6a8c36bfdd5506948fd5b60b21533b4b298e0fa5c2858d6171",
+    "figure/figure4_residual_and_null.pdf": "69fb992a7c7faf664e6fd8095d05f7da98687d212638d33cc737ff3e5b9b21b6",
+    "figure/figure2_performance.pdf": "51de08da1ca8b242e3897d0dd0594afd2a3806fed84ee507c3cbf517c32f9e8a",
+    "figure/figure6_cases_ab.pdf": "2e6e0377c26fdf1d6319468b5cecdea1caea1b78b4818259a91d2f610cd1ea06",
+    "figure/figure3_model_analysis.pdf": "8430f177235a5cc8a74e1a11746fdf25263f0b318de27f228237745507471dd8",
+    "figure/figure4_casebook.pdf": "62edb8d3d053be1bb038ea0b85b16c5f927f7c2a33db52771d7ea19543476cb7",
+    "figure/figure3_pair_audit.pdf": "d43f547cdc4118780ffa544567373aa15b069d243ede514ad6d2a09aed49f050",
+    "figure/figure3_transfer.pdf": "569839efd414056cbebedce0eaa862688cddc9d6a4a4f082157a7164fb35783c",
+    "figure/figure3_biocontext_summary.pdf": "7bec1dddbef1e52fa4b36f1ba82b3df25bb38cced91d3c6779df82b3565155db",
+    "figure/figure_target_class_atlas.pdf": "30d6de5f1e02d3c4b5f002d7e1233ee192b4579a4635fe1377421da2a2818f0a",
+    "figure/figure4_offset_and_within_pair.pdf": "41c79ad3229f60644c0f5c2c222bb585c9ca0923d0ee0677b8042a1bc8fcc13f",
+    "figure/figure1_dataset.pdf": "89e2dc3e2fc2818483456823eb9db3a72d1ad7493e2d56169d15c3bcadcf9fab",
+    "figure/figure3_benchmark.pdf": "2d3980aafa3424dad1713cf054efdbf497b8e19a58558946445dd37ed2af53ca",
+    "figure/figure1_task_schematic.pdf": "5de8a0af25f22e9d92b6c67e119b2b98b7a1cd5aa4d59e822be6c9b6c0f2b790",
+    "figure/figure6_cases.pdf": "ab3ce3a2d08309c55a7111290faa89606bd3aae0976a48f2498afd5ff6cc6347",
+    "figure/figure5_retest.pdf": "0fba03b029f137ffc4d446cb981c6c1f2192dc9b7a5fc92bb363998d6e1bf3c3",
+    "figure/figure2_data_evidence.pdf": "c689069c22ebd9669cf0bd1623613bf9f12d0b6212181e97b721eaaf255001cf"
+  },
+  "note": "Original template archive and extracted files are unmodified. Manuscripts reuse its class, package declarations and layout settings; only manuscript metadata and body are substituted."
+}

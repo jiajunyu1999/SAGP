@@ -1,0 +1,26 @@
+{
+  "selection": "Retrospective successful examples; fixed split 17; full selected-pair test cohorts retained",
+  "cases": [
+    {
+      "target": "ROCK2",
+      "pair_id": "pair_ef91674396301babd5855a30",
+      "n": 13,
+      "mae": 0.105680360015568,
+      "auroc": 0.825
+    },
+    {
+      "target": "ER beta",
+      "pair_id": "pair_8b1e0deac1751c0b9386b9e6",
+      "n": 16,
+      "mae": 0.3373785192580756,
+      "auroc": 0.84375
+    },
+    {
+      "target": "ALDH1A1",
+      "pair_id": "pair_4602ecfcc6d5ce19375c94b5",
+      "n": 20,
+      "mae": 0.26845536292834243,
+      "auroc": 0.8351648351648351
+    }
+  ]
+}

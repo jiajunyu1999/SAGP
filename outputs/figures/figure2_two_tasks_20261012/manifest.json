@@ -1,0 +1,45 @@
+{
+  "figure2": {
+    "panels": 9,
+    "paired_observations": 79810,
+    "pair_shift_dispersion_points": 12392,
+    "analogue_comparisons": 73950,
+    "analogue_pairs": 2596,
+    "assay_descriptions": 3113,
+    "condition_rows": 4626,
+    "condition_types": 14,
+    "targets": 452,
+    "top10_target_fraction": 0.6169168356997972,
+    "singleton_pair_fraction": 0.8507813530660462
+  },
+  "palette": [
+    "#e1585d",
+    "#f29f7b",
+    "#fbd49f",
+    "#fef9cf",
+    "#d6eae3",
+    "#a3cbe0",
+    "#649cc9"
+  ],
+  "palette_source": "paper/image.png",
+  "palette_script_sha256": "a391d489a35bb9df108e666c956fbcfb3ace4fb3a9e030bedac67caefd1c1646",
+  "source_sha256": {
+    "outputs/datasets/sar_transfer_20261007/molecule_assay_observations.parquet": "a0e9c7251c8e3d7d0d8ff2f8917d413dc4bc8fc65d81058fcd26b5757a5089ff",
+    "outputs/datasets/sar_transfer_20261007/anchor_transfer_all.parquet": "d8d466c1df0bc122674d606e54995cc922d69a0942378bbbfd5b20181967d525",
+    "data/processed/pairs.parquet": "ff0a198c77eb5e9e784f3bf8f9f99d4a4672c4f25889b394e32d09c5b0911d40",
+    "outputs/figures/condition_scatter_20261007/scatter_plot_data.csv": "4b757b39e429c5a1fb83954a5d988634689349da2dabb6b285a46e69a75a958f",
+    "outputs/datasets/sar_transfer_20261007/assay_contexts.parquet": "408759202b02b816eb68f2054611da6e13fb7a1ab870edea6475750d84319a87",
+    "paper/baseline_table_sources_final_20261009/metrics_by_seed_and_draw.csv": "2deb0b687f3fc6fddf702bfbe8e15fdf7a5b0b04e03388202553b451e371c2ba",
+    "outputs/audit/curation_counts.json": "e145c0222d8aab1384206c766d368ea9accd4b07e69de870137372338d5a9d78"
+  },
+  "script_sha256": "e44603a1b0e0245eceaeff7355ddbc000c126d0734b57fd22ada9514aad5e173",
+  "numeric_parser_script_sha256": "5a4514043aa0a016273cb765b1dda8d9390baa6d7b0cf534d2d1afdb7e6125a4",
+  "other_figures_at_start": {
+    "figure3_model_gains": "54cde9f3b62d518d608997105e752357f8d03eb84e56fdba02cf69878cbd01a6",
+    "figure4_casebook": "246dcf6a98758c7bcdfff9a2efafe7a17a3c2fc5547709b87140cae62e3e6753"
+  },
+  "jitter_seed": 20261009,
+  "units": "Activity records, molecular observations, analogue comparisons, assay pairs and sample-condition rows differ.",
+  "interpretation": "All observations displayed; conditions can covary; metadata coverage means parsed numeric mentions, not true protocol availability.",
+  "empirical_selection": "Largest shared-molecule pair, without inspecting model performance or outcomes."
+}

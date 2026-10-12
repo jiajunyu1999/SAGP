@@ -1,0 +1,23 @@
+\begin{table}[!htbp]
+\centering
+\caption{Data resource and task cohorts. Rows have different observation units and are not additive. Retained activity records comprise IC$_{50}$ and Ki; only IC$_{50}$ is modeled. The protocol audit is a separate descriptive cohort. Dashes indicate dimensions not separately tabulated.}
+\label{tab:data-resource}
+\small
+\setlength{\tabcolsep}{4pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llrrr}
+\toprule
+Dataset & Observation unit & Rows & Assay pairs & Targets \\
+\midrule
+SQL candidates & Activity record & 1,563,556 & -- & -- \\
+Excluded by curation & Activity record & 647,225 & -- & -- \\
+Retained exact records & Activity record & 916,331 & -- & 2,884 \\
+Primary IC50 records & Activity record & 690,683 & -- & -- \\
+Ki records (not modeled) & Activity record & 225,648 & -- & -- \\
+Complete IC50 pairing & Molecule--assay pair & 153,468 & 83,381 & 1,414 \\
+Provenance-filtered repeated pairs & Molecule--assay pair & 79,810 & 12,392 & 846 \\
+Task 1 eligible cohort & Analogue comparison & 73,950 & 2,596 & 452 \\
+Separate protocol audit & Sample--condition row & 4,626 & 1,008 & 179 \\
+\bottomrule
+\end{tabular}}
+\end{table}

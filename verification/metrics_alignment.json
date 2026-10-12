@@ -1,0 +1,15 @@
+{
+  "rows_verified": 135,
+  "tasks": [
+    1,
+    2
+  ],
+  "seeds": [
+    17,
+    23,
+    41,
+    71,
+    101
+  ],
+  "alignment": "identical query IDs, assay pairs, labels and targets; all four benchmark metrics within 1e-7 of saved paper values"
+}

@@ -1,0 +1,24 @@
+document,type,label,resolved_number
+pair-context-benchmark,ref,fig:pipeline,1
+pair-context-benchmark,ref,tab:data-resource,1
+pair-context-benchmark,ref,tab:data-resource,1
+pair-context-benchmark,ref,tab:task-cohorts,2
+pair-context-benchmark,ref,fig:gains,3
+pair-context-benchmark,ref,tab:baselines-task1,3
+pair-context-benchmark,ref,tab:baselines-task2,4
+pair-context-benchmark,ref,fig:gains,3
+pair-context-benchmark,ref,fig:data,2
+pair-context-benchmark,ref,tab:baselines-task1,3
+pair-context-benchmark,ref,tab:baselines-task2,4
+pair-context-benchmark,ref,fig:gains,3
+pair-context-benchmark,ref,tab:baselines-task2,4
+pair-context-benchmark,ref,fig:cases,4
+pair-context-benchmark,ref,tab:caseprovenance,5
+pair-context-benchmark,ref,tab:reference-interventions,6
+pair-context-benchmark,ref,fig:reference-evidence,5
+pair-context-benchmark,ref,fig:reference-evidence,5
+pair-context-benchmark,ref,fig:applicability,6
+pair-context-benchmark,ref,fig:reference-evidence,5
+pair-context-benchmark,ref,fig:applicability,6
+pair-context-benchmark,SI table,SIControlledTable,S1
+pair-context-benchmark,SI table,SIFinalTable,S2

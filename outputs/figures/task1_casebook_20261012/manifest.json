@@ -1,0 +1,9 @@
+{
+  "seed": 17,
+  "cases": [
+    "sar_ce494b6496d0f44f04353b13",
+    "sar_254f41fa9431b8ac3a8150e9"
+  ],
+  "structures": "Exact activity-linked ChEMBL37 structures; custom original atom palette",
+  "selection": "Retrospectively selected accurate retained and reversed SAR examples; complete selected-pair test cohorts shown"
+}

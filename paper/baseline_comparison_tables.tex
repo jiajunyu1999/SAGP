@@ -1,0 +1,58 @@
+\begin{table}[htbp]
+\centering
+\caption{Known-pair SAR transfer. Results are mean $\pm$ SD across five fixed scaffold splits.}
+\label{tab:baselines-task1}
+\small
+\setlength{\tabcolsep}{6pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrr}
+\toprule
+Method & AP $\uparrow$ & AUROC $\uparrow$ & Pair AUROC $\uparrow$ & Macro MAE $\downarrow$ \\
+\midrule
+Constant risk / unchanged A gap & 0.169 $\pm$ 0.091 & 0.500 $\pm$ 0.000 & 0.500 $\pm$ 0.000 & 0.398 $\pm$ 0.031 \\
+Logistic regression / ridge & 0.433 $\pm$ 0.136 & 0.760 $\pm$ 0.044 & 0.629 $\pm$ 0.036 & 0.465 $\pm$ 0.058 \\
+Random forest & 0.517 $\pm$ 0.151 & 0.830 $\pm$ 0.026 & 0.726 $\pm$ 0.029 & 0.445 $\pm$ 0.062 \\
+Within-pair molecular kNN & 0.435 $\pm$ 0.178 & 0.686 $\pm$ 0.103 & 0.552 $\pm$ 0.037 & 0.541 $\pm$ 0.069 \\
+Contrast boosting & 0.493 $\pm$ 0.137 & 0.817 $\pm$ 0.031 & 0.713 $\pm$ 0.054 & 0.344 $\pm$ 0.026 \\
+Threshold-monotone boosting & 0.495 $\pm$ 0.130 & 0.819 $\pm$ 0.021 & 0.720 $\pm$ 0.057 & -- \\
+Direct MLP & 0.436 $\pm$ 0.181 & 0.723 $\pm$ 0.076 & 0.626 $\pm$ 0.032 & 0.506 $\pm$ 0.091 \\
+Reference attention & 0.445 $\pm$ 0.180 & 0.735 $\pm$ 0.065 & 0.640 $\pm$ 0.032 & 0.481 $\pm$ 0.085 \\
+Neural local empirical Bayes & 0.478 $\pm$ 0.157 & 0.800 $\pm$ 0.044 & 0.693 $\pm$ 0.036 & 0.378 $\pm$ 0.036 \\
+\midrule
+SAGP (ours) & \textbf{0.539 $\pm$ 0.148} & \textbf{0.844 $\pm$ 0.012} & \textbf{0.746 $\pm$ 0.055} & \textbf{0.321 $\pm$ 0.026} \\
+\bottomrule
+\end{tabular}}
+\par\vspace{3pt}
+\begin{minipage}{0.98\textwidth}\footnotesize
+Pair AUROC uses the same strict rule for every row: at least ten queries and three per class. Bold marks the largest mean for ranking metrics or the smallest mean error. All methods use identical test IDs and outcomes within each seed. Linear and forest classification/regression estimators address separate endpoints; their outputs are never fused. The threshold classifier has no continuous output; its companion gap regressor is listed under contrast boosting. Training objectives and available reference representations differ.
+\end{minipage}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{Molecular sensitivity within a known assay pair. Results are mean $\pm$ SD across five fixed scaffold splits.}
+\label{tab:baselines-task2}
+\small
+\setlength{\tabcolsep}{6pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrr}
+\toprule
+Method & AP $\uparrow$ & AUROC $\uparrow$ & Pair AUROC $\uparrow$ & Macro MAE $\downarrow$ \\
+\midrule
+Assay-pair prior & 0.507 $\pm$ 0.032 & 0.865 $\pm$ 0.011 & 0.500 $\pm$ 0.000 & 0.196 $\pm$ 0.033 \\
+Logistic regression / ridge & 0.452 $\pm$ 0.080 & 0.831 $\pm$ 0.030 & 0.555 $\pm$ 0.042 & 0.226 $\pm$ 0.036 \\
+Random forest & 0.564 $\pm$ 0.046 & 0.878 $\pm$ 0.012 & 0.649 $\pm$ 0.070 & 0.195 $\pm$ 0.031 \\
+Within-pair molecular kNN & 0.554 $\pm$ 0.050 & 0.868 $\pm$ 0.008 & 0.630 $\pm$ 0.048 & 0.188 $\pm$ 0.027 \\
+XGBoost & 0.457 $\pm$ 0.022 & 0.865 $\pm$ 0.011 & 0.568 $\pm$ 0.030 & 0.197 $\pm$ 0.025 \\
+Direct MLP & 0.483 $\pm$ 0.072 & 0.821 $\pm$ 0.047 & 0.583 $\pm$ 0.061 & 0.216 $\pm$ 0.032 \\
+Reference attention & 0.510 $\pm$ 0.046 & 0.844 $\pm$ 0.015 & 0.605 $\pm$ 0.039 & 0.208 $\pm$ 0.031 \\
+Neural local empirical Bayes & 0.560 $\pm$ 0.057 & 0.879 $\pm$ 0.015 & 0.615 $\pm$ 0.060 & 0.194 $\pm$ 0.030 \\
+\midrule
+SAGP (ours) & \textbf{0.644 $\pm$ 0.042} & \textbf{0.898 $\pm$ 0.005} & \textbf{0.697 $\pm$ 0.038} & \textbf{0.160 $\pm$ 0.011} \\
+\bottomrule
+\end{tabular}}
+\par\vspace{3pt}
+\begin{minipage}{0.98\textwidth}\footnotesize
+Pair AUROC uses the same strict rule for every row: at least ten queries and three per class. Bold marks the largest mean for ranking metrics or the smallest mean error. All methods use identical test IDs and outcomes within each seed. Linear and forest classification/regression estimators address separate endpoints; their outputs are never fused. Training objectives and available reference representations differ.
+\end{minipage}
+\end{table}

@@ -1,0 +1,9 @@
+activity_id,chembl_id,standard_value,standard_units,standard_relation,canonical_smiles
+22431077,CHEMBL4796321,8.0,nM,=,COc1ccc(-c2cccc(C(C)=O)c2)n2nc(C3CC3)nc12
+22431134,CHEMBL4796321,24.0,nM,=,COc1ccc(-c2cccc(C(C)=O)c2)n2nc(C3CC3)nc12
+22431025,CHEMBL4748344,600.0,nM,=,COc1ccc(-c2cccc(C(=O)O)c2)n2nc(C3CC3)nc12
+22431084,CHEMBL4748344,1000.0,nM,=,COc1ccc(-c2cccc(C(=O)O)c2)n2nc(C3CC3)nc12
+28020716,CHEMBL5760453,55.0,nM,=,Cc1noc(-c2c(N3CCC(N[C@@H]4CCCOC4)CC3)nc3c(F)cc(C(F)(F)F)cc3c2C)n1
+28504019,CHEMBL5760453,5.5,nM,=,Cc1noc(-c2c(N3CCC(N[C@@H]4CCCOC4)CC3)nc3c(F)cc(C(F)(F)F)cc3c2C)n1
+28020752,CHEMBL5930212,5.5,nM,=,Cc1noc(-c2c(N3CCC(N[C@@H]4CCCOC4)CC3)nc3c(F)cc(CC(F)(F)F)cc3c2C)n1
+28504055,CHEMBL5930212,55.0,nM,=,Cc1noc(-c2c(N3CCC(N[C@@H]4CCCOC4)CC3)nc3c(F)cc(CC(F)(F)F)cc3c2C)n1

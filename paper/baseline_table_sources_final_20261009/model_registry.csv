@@ -1,0 +1,28 @@
+task,model,label,policy
+1,retain_gap_A,Constant risk / unchanged A gap,known_pair
+1,linear,Logistic regression / ridge,known_pair
+1,random_forest,Random forest,known_pair
+1,local_knn,Within-pair molecular kNN,known_pair
+1,contrast_boost_with_gap_regression,Contrast boosting,known_pair
+1,threshold_monotone,Threshold-monotone boosting,known_pair
+1,direct_neural,Direct MLP,known_pair
+1,reference_attention,Reference attention,known_pair
+1,ebayes_local,Neural local empirical Bayes,known_pair
+1,fixed_tanimoto_gp,Fixed Tanimoto GP,known_pair
+1,neural_mean_gp,Neural-mean GP,known_pair
+1,global_monotone,Global monotone GP,known_pair
+1,conditional_monotone,Conditional monotone GP,known_pair
+1,context_neural,SAGP,known_pair
+2,pair_prior,Assay-pair prior,known_pair
+2,linear,Logistic regression / ridge,known_pair
+2,random_forest,Random forest,known_pair
+2,local_knn,Within-pair molecular kNN,known_pair
+2,xgboost,XGBoost,known_pair
+2,direct_neural,Direct MLP,known_pair
+2,reference_attention,Reference attention,known_pair
+2,ebayes_local,Neural local empirical Bayes,known_pair
+2,fixed_tanimoto_gp,Fixed Tanimoto GP,known_pair
+2,neural_mean_gp,Neural-mean GP,known_pair
+2,global_monotone,Global monotone GP,known_pair
+2,conditional_monotone,Conditional monotone GP,known_pair
+2,context_neural,SAGP,known_pair

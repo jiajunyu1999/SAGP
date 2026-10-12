@@ -1,0 +1,19 @@
+\begin{table}[htbp]\centering\small
+\caption{Frozen reference interventions. Mean $\pm$ SD over five dependent scaffold splits.}
+\label{tab:reference-interventions}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llrrr}\toprule
+Task & Reference cap / control & AP & Pair AUROC & Macro MAE\\\midrule
+1 & 3 & 0.3712 $\pm$ 0.1301 & 0.7275 $\pm$ 0.0556 & 0.3726 $\pm$ 0.0185\\
+2 & 3 & 0.4442 $\pm$ 0.0550 & 0.6240 $\pm$ 0.0614 & 0.2167 $\pm$ 0.0306\\
+1 & 10 & 0.4944 $\pm$ 0.1545 & 0.7295 $\pm$ 0.0569 & 0.3421 $\pm$ 0.0196\\
+2 & 10 & 0.5540 $\pm$ 0.0493 & 0.6429 $\pm$ 0.0523 & 0.1886 $\pm$ 0.0216\\
+1 & 30 & 0.5360 $\pm$ 0.1477 & 0.7379 $\pm$ 0.0533 & 0.3265 $\pm$ 0.0224\\
+2 & 30 & 0.6253 $\pm$ 0.0384 & 0.6760 $\pm$ 0.0335 & 0.1664 $\pm$ 0.0154\\
+1 & 100 & 0.5395 $\pm$ 0.1481 & 0.7459 $\pm$ 0.0554 & 0.3212 $\pm$ 0.0257\\
+2 & 100 & 0.6439 $\pm$ 0.0422 & 0.6969 $\pm$ 0.0384 & 0.1602 $\pm$ 0.0114\\
+1 & Shuffled response, 100 & 0.3304 $\pm$ 0.0888 & 0.7086 $\pm$ 0.0602 & 0.4003 $\pm$ 0.0379\\
+2 & Shuffled response, 100 & 0.4548 $\pm$ 0.0445 & 0.5270 $\pm$ 0.0334 & 0.2112 $\pm$ 0.0315\\
+\bottomrule\end{tabular}}
+\par\vspace{3pt}\begin{minipage}{0.96\textwidth}\footnotesize Caps are maximum available reference counts. Weights, queries and labels stay fixed; Task 2 retains its full-training-pool median offset. One nested support order and one within-pair response shuffle are evaluated per split. SD is not a confidence interval. All controls and all unfavorable outcomes are retained.\end{minipage}
+\end{table}

@@ -1,0 +1,16 @@
+{
+  "1": {
+    "model_policy_settings": 13,
+    "model_seed_points": 130,
+    "error_pairs": 522,
+    "recall_at_10_percent": 0.23298441298236958,
+    "enrichment_at_10_percent": 2.329844129823696
+  },
+  "2": {
+    "model_policy_settings": 10,
+    "model_seed_points": 100,
+    "error_pairs": 275,
+    "recall_at_10_percent": 0.20343299435049111,
+    "enrichment_at_10_percent": 2.034329943504911
+  }
+}

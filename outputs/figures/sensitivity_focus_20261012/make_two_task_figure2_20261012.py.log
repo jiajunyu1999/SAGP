@@ -1,0 +1,15 @@
+{
+  "figure2": {
+    "panels": 9,
+    "paired_observations": 79810,
+    "pair_shift_dispersion_points": 12392,
+    "analogue_comparisons": 73950,
+    "analogue_pairs": 2596,
+    "assay_descriptions": 3113,
+    "condition_rows": 4626,
+    "condition_types": 14,
+    "targets": 452,
+    "top10_target_fraction": 0.6169168356997972,
+    "singleton_pair_fraction": 0.8507813530660462
+  }
+}

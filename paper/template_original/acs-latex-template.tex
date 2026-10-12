@@ -1,0 +1,410 @@
+\documentclass[letterpaper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{natbib}
+
+\usepackage{geometry}
+
+\usepackage{microtype,graphicx,booktabs,amsmath,caption}
+\usepackage[hidelinks]{hyperref}
+
+\geometry{margin = 1in}
+\usepackage{setspace}
+
+% \usepackage[style = chem-acs]{biblatex}
+% \addbibresource{references.bib}
+
+% \usepackage[
+%   backend=biber,
+%   style=chem-acs
+% ]{biblatex}
+% \addbibresource{references.bib}
+
+% If you are using classical BibTeX, remove the above lines and 
+% uncomment:
+%\usepackage{achemso}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Graphic inclusion and scheme and chart support
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{graphicx}
+\usepackage{float}
+\newfloat{scheme}{htbp}{los}
+\floatname{scheme}{Scheme}
+\floatname{chart}{Chart}
+\newfloat{graph}{htbp}{loh}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Common support packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{chemformula} % Formulas using \ch{}
+% or
+\usepackage[version = 4]{mhchem} % Formulas using \ce{}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Many journals require that sections are unnumbered: this 
+%% is activated here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setcounter{secnumdepth}{-1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Place any additional macros here.  Please use \newcommand* where
+%% possible, and avoid layout-changing macros (which are not used
+%% when typesetting).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand*\mycommand[1]{\texttt{\emph{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Author and title data:
+%% the authblk package is currently the simplest way to provide this
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{authblk}
+\author[1]{Andrew N. Other}
+\author[1]{Fred T. Secondauthor}
+\author[1]{I. Ken Groupleader*}
+\affil[1]{Department of Chemistry, Unknown University, Unknown Town}
+\author[2]{Susanne K. Laborator}
+\affil[2]{Lead Discovery, BigPharma, Big Town, USA}
+\author[1]{Kay T. Finally}
+
+\title{BioContext-GINE predicts ligand-specific potency discordance across biological assay contexts}
+% Use the \date command for email address(s) of corresponding authors
+\date{*Email: i.k.groupleader@unknown.uu}
+
+% \usepackage[
+%   backend=biber,
+%   style=chem-acs
+% ]{biblatex}
+
+% \addbibresource{references.bib}
+
+
+\begin{document}
+
+\maketitle
+
+
+\begin{abstract}
+Potency is an experimental phenotype rather than an intrinsic constant of a small molecule. Yet values measured in different assay systems are frequently combined, even when a large difference may arise from biological and protocol context as much as chemical change. We introduce BioContext-Disagreement, a lineage-preserving resource of exact human single-protein IC$_{50}$ records curated from ChEMBL37, and BioContext-GINE, an assay-context-conditioned molecular graph network that ranks compounds likely to show a large difference between two known assay contexts. The resource contains 690,683 exact IC$_{50}$ measurements and 153,468 molecule--assay-pair rows. On five chemical-family-disjoint partitions of 368 well-supported assay pairs, BioContext-GINE achieved pair-macro AUROC $0.730\pm0.031$ and AP $0.761\pm0.045$ for one-log-unit discordance. A capacity-matched fingerprint/context MLP was close (0.717/0.745), whereas replacing assay and target context by constants reduced BioContext-GINE to 0.690/0.743. The signal is local: 83.1\% of test rows have a same-pair training analogue with Morgan Tanimoto similarity at least 0.70, and discrimination is lost when connected chemical series are separated. Transfer to unseen assay sources and temporally later records is weak and does not favour the graph model over simple fingerprint/context baselines. Thus BioContext-GINE defines a chemically local, known-transition prioritization tool rather than a universal predictor of biological context sensitivity. Four matched molecular-pair examples link small structural edits to large discordance in assay systems differing in enzyme concentration, serum, protein source or protocol; self-association and altered free concentration are explicit, testable alternatives to target-level explanations.
+\end{abstract}
+
+\section{Introduction}
+
+A small-molecule potency value is not observed in isolation. It emerges from a ligand, a target and the experimental system used to interrogate their interaction. This distinction is especially important for IC$_{50}$, an operational readout whose relationship to binding affinity depends on the kinetic regime and substrate concentration \citep{cheng1973ic50}. Protein construct and preparation, target or substrate abundance, serum, buffer composition, incubation time and detection technology can further reshape the measured response. Potency discordance between assays may therefore contain a mixture of technical variation and genuine context sensitivity. For chemical biology and lead optimization, separating these possibilities is consequential: an apparent SAR discontinuity may reflect a ligand-specific response to a change in biological system rather than a simple failure of measurement.
+
+The growth of public bioactivity resources has made this problem unavoidable. ChEMBL captures millions of compound--target measurements together with assay, target and document annotations \citep{chembl2023,mendez2019chembl,papadatos2015curation}, providing an indispensable foundation for molecular learning \citep{wu2018moleculenet}. Yet scale is commonly achieved by pooling measurements that were generated under different experimental conditions. Analyses of heterogeneous public $K_i$ records have placed the typical uncertainty at several tenths of a log unit \citep{kramer2012uncertainty}. For IC$_{50}$, 27\% of minimally curated cross-assay pairs differed by more than one log unit; matching assay metadata more strictly reduced, but did not eliminate, this fraction (13\%) \citep{landrum2024noise}. Closely related ligands can remain comparatively robust to some of this variation \citep{nelen2025matched}, suggesting that discordance is not distributed uniformly across chemical space. These observations create a central tension: pooling increases statistical power, but may erase the biological context that determines whether two values are commensurate.
+
+Most ligand-based models resolve this tension only indirectly. Molecular graph networks learn expressive chemical representations \citep{xu2019gin,hu2020strategies}, but generally treat an activity value as a target-level label whose meaning is stable across records. Recent assay-aware methods instead encode experimental metadata when predicting activity in one assay or selecting compatible training measurements \citep{schoenmaker2025context,assaymatch2026}. What remains unclear is whether assay discordance can itself be treated as a ligand-level phenotype. Within the same target and the same pair of assay systems, are some chemotypes systematically more sensitive to the transition than others? A model of this phenotype would serve a different purpose from conventional potency prediction: it could identify context-sensitive chemical series, prioritize ambiguous records for review and nominate experiments in which one assay variable is perturbed at a time.
+
+Here, we address this question by constructing BioContext-Disagreement, a lineage-preserving resource derived from ChEMBL37. Rather than collapsing observations into a single consensus potency, we retain the two measurements, assay identities, source documents and curation decisions underlying every molecule--assay-pair example. We then introduce BioContext-GINE, which combines molecular graph and substructure representations with target and order-invariant assay-pair context to predict a one-log-unit potency discordance. Across chemical-family-disjoint partitions, BioContext-GINE identifies compound-level heterogeneity within supported assay transitions and outperforms simpler neural and linear representations. The signal is strongest within experimentally represented analogue series and is lost under connected-series separation, defining a local rather than universal domain of applicability. Molecular-property analyses reveal modest, context-dependent associations rather than a single vulnerable chemotype, whereas matched molecular-pair cases connect large discordance to experimentally interpretable changes in serum, protein preparation, enzyme concentration and protocol.
+
+Together, these results position cross-assay discordance as a tractable, context-dependent phenotype. BioContext-GINE does not determine which source value is correct, nor does it infer a causal assay mechanism from retrospective records. Instead, it provides a traceable route from heterogeneous public measurements to focused biological review and prospective replication.
+
+\section{The BioContext-Disagreement resource}
+
+\subsection{Curation and traceable pair construction}
+
+We downloaded the official ChEMBL37 SQLite archive, pinned the archive hash, and extracted human single-protein binding records with exact numerical IC$_{50}$ or Ki values \citep{chembl2023,chembl37}. ChEMBL explicitly represents activity, assay and target curation decisions, which makes this lineage-preserving construction possible \citep{mendez2019chembl,papadatos2015curation}. IC$_{50}$ was prespecified as the primary endpoint and Ki was retained only as a small endpoint sensitivity. Each candidate had to provide a molecule, target, assay, document, endpoint, relation, numerical value, and unit. The curation pipeline mapped the submitted structure to its stereo-preserving parent after counterion removal, retained the source activity and assay/document identifiers, and did not impute missing assay fields. It excluded non-exact relations, potential duplicates, non-binding assay types, invalidity flags, structured cell/organism context, unparsable structures, and invalid values or units.
+
+Of 1,563,556 SQL candidates, 916,331 measurements met the predeclared rules. The mutually exclusive exclusions sum to 647,225 records: non-exact relation (376,200), potential duplication (147,515), assay type (74,839), data-validity comment (16,746), known cell or organism context (21,244), unparseable structure (8,774), and invalid value or unit (1,907). The primary resource has 690,683 exact IC$_{50}$ measurements; 225,648 Ki measurements remain separate.
+
+Let $r=(m,t,e,a,d,v,u)$ denote a retained primitive record: standardized molecule $m$, human target $t$, endpoint $e$, assay $a$, document $d$, numerical value $v$, and unit $u$. Values were converted only after unit validation,
+\[
+p(r)=-\log_{10}\!\left(v\,\kappa(u)\right), \qquad \kappa(u)\;\text{converts }u\text{ to molar},
+\]
+and then aggregated by a median only within an identical $(m,t,e,a)$ group,
+\[
+\tilde p_{mtae}=\operatorname{median}\{p(r):r\in(m,t,e,a)\}.
+\]
+Thus documents are retained as lineage rather than silently pooled into a new assay definition. For every target $t$, molecule $m$, endpoint $e$, and unordered assay pair $A<B$ for which both $\tilde p_{mtAe}$ and $\tilde p_{mtBe}$ exist, we emitted exactly one paired row:
+\[
+\Delta_{mtAB}=\tilde p_{mtAe}-\tilde p_{mtBe}, \qquad
+Y_{mtAB}=\mathbb{1}\left(|\Delta_{mtAB}|\geq1\right).
+\]
+The threshold is one log unit, i.e., a tenfold potency difference. Every row stores both aggregated values as well as the contributing primitive ChEMBL activity identifiers, assay identifiers, document identifiers, values, units, and curation decisions. The complete IC$_{50}$ pairing contains 153,468 rows, 38,971 chemical identities, 83,381 assay pairs, 1,414 targets, 28,994 assays, and 11,025 documents. Its $|\Delta|$ median is 0.553 (IQR 0.192--1.176) and 47,558 rows (31.0\%) are positive; 53.2\% are same-document pairings.
+
+Here ``aggregation'' means a statistical summary of repeated values, not a statement that the compound is monomeric in solution. This distinction matters because drug-like small molecules can self-associate into colloidal particles above a compound- and condition-specific critical aggregation concentration; protein adsorption to those particles can produce apparent enzyme inhibition \citep{mcgovern2002detergent,feng2018colloidal}. Such self-association is not confined to macromolecular formulations, and it is sensitive to concentration, buffer, pH/ionic strength, cosolvent, detergent, protein concentration, incubation time, and order of addition. ChEMBL assay descriptions do not record these variables consistently, nor does this dataset include particle-size, detergent-reversal, or free-concentration measurements. We therefore neither label any record as an aggregator nor interpret the median as correcting aggregation-derived signal. Instead, aggregation/self-assembly is a candidate source of ligand-specific noise and an explicit prospective control.
+
+Assay descriptions were cleaned before feature construction: outcome values, units, compound and document identifiers, and other result-like strings were removed, while protocol-relevant text such as readout, substrate, buffer, and construct wording was retained. All token vocabularies, descriptor scaling constants, and baseline projections were fitted on training records only. A source-triggered audit found cell-based BAO format or explicit cellular prose in 26,161 of 87,803 assays. We therefore report a strict sensitivity excluding every pair row involving a flagged assay; it is a reproducible high-specificity screen, not a claim that the remaining records are all purified biochemical experiments.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figure/figure1_dataset.pdf}
+\caption{BioContext-Disagreement construction and biological context analysis. (A) Lineage-preserving curation from ChEMBL37 candidates to paired IC$_{50}$ examples. (B) Mutually exclusive exclusions. (C) IC$_{50}$ is the primary endpoint and Ki is held out for sensitivity. (D) Assay-pair support motivates the 30-shared-molecule threshold. (E) Cross-document records have larger discordance than same-document records (two-sided Kolmogorov--Smirnov statistic $D=0.132$, $P<10^{-4}$; $n=153{,}468$ pair rows). (F) Screen-negative target classes have heterogeneous disagreement prevalence. The test in E treats rows as observations and is descriptive, because rows share assays and molecules.}
+\label{fig:dataset}
+\end{figure}
+
+\subsection{Discordance reflects both source separation and biological assay class}
+
+The pairing step revealed a strongly skewed experimental landscape. Of 83,381 assay pairs represented in the complete IC$_{50}$ resource, 70,939 share only one molecule and 12,442 share at least two. Increasing the minimum support from 10 to 20 and 30 shared molecules reduces the number of assay pairs from 1,479 to 679 and 368, respectively, while retaining 44,319, 33,561 and 26,244 rows. Thus, most possible assay transitions are observed too sparsely to support compound-level learning, whereas a small core contains repeated measurements across coherent chemical series. We use the 30-molecule threshold to balance biological breadth with the within-pair class support needed for evaluation; thresholds of 50--100 are examined as sensitivities rather than used to redefine the primary cohort.
+
+Source provenance separates two distinct regimes. Same-document comparisons account for 81,719 rows and have median $|\Delta pIC_{50}|=0.449$ (IQR 0.137--1.025), with 26.1\% exceeding one log unit. Cross-document comparisons account for 71,749 rows and show a larger median difference of 0.679 (IQR 0.270--1.349), with 36.5\% exceeding one log unit. The empirical distributions differ (two-sided Kolmogorov--Smirnov $D=0.132$, $P<10^{-4}$; Fig.~\ref{fig:dataset}E). Because rows can share molecules, assays and documents, this $P$ value is descriptive rather than evidence for independent biological replication. The effect nonetheless supports a biologically plausible interpretation: moving between source laboratories introduces more opportunities for protein preparation, reagent, protocol and reporting conventions to change together.
+
+Discordance is also heterogeneous across target classes after excluding assays with explicit cellular language. The target-weighted mean ranges from 0.130 for GPCRs (95\% bootstrap interval 0.079--0.189) and 0.144 for kinases (0.126--0.163) to 0.234 for epigenetic regulators (0.188--0.283), 0.246 for transporters (0.093--0.422) and 0.290 for ion channels (0.180--0.405). These intervals overlap, particularly for sparsely represented classes, and do not establish an intrinsic ordering of target biology. Instead, they show that the composition of assay systems differs across protein families. The relatively tight kinase interval reflects broad sampling, whereas the wider transporter and ion-channel intervals expose limited target coverage and greater uncertainty. We therefore condition prediction on the target and the specific assay transition rather than treating target class as a universal susceptibility label.
+
+\subsection{Evaluation domain and safeguards}
+
+The primary known-pair task retains assay pairs with at least 30 shared molecules: 368 pairs and 26,244 rows across 146 targets. This support-filtered cohort has a median of 53 shared molecules per pair (IQR 36--71), a positive rate of 25.6\%, and a $|\Delta|$ median of 0.309. In each of five fixed partitions (seeds 17, 23, 41, 71, and 101), stereochemistry-free connectivity families are disjoint across training, tuning, calibration, and test partitions. We additionally use Bemis--Murcko scaffolds and radius-2 circular fingerprints for the scaffold and series sensitivities \citep{murcko1996,rogers2010ecfp}; this follows the principle that molecular benchmarks should make the split protocol explicit \citep{wu2018moleculenet}. Pair-macro AUROC and pair-macro AP are calculated only for test pairs with at least ten rows and at least three examples of each class. This gives 133 evaluable pair--seed instances from 45 unique assay pairs. The split prevents identical-connectivity leakage but does not assert independence between the five overlapping test partitions.
+
+Two harder sensitivities define the boundary of the result. A Murcko-scaffold holdout separates all test scaffolds from training scaffolds \citep{murcko1996}. A series holdout connects chemical families when their radius-2 chirality-aware Morgan Tanimoto similarity is at least 0.70 and holds each connected component intact. The latter prevents any cross-partition family pair from exceeding that similarity threshold.
+
+We separately evaluate biological-context transfer. Track B assigns assay source groups and chemical families together, so every test family and at least one assay source in every test pair are absent from training; consequently every test assay pair is unseen. Depending on the fixed partition, it contains 3,967--5,000 test rows, 342--360 targets and 2,893--4,208 assay pairs. This is a stricter unseen-pair evaluation than leave-one-pair-out because chemical families are also disjoint. Because most pairs are too small for within-pair evaluation, its estimand is target-macro AP/AUROC rather than the known-pair estimand. A semi-prospective time split trains only on pairs for which both source documents are dated 2020 or earlier and fixes as test examples 20,160 pairs for which both documents date from 2021--2025, both assay sources are unseen, and the chemical family was absent from all historical dual-source pairs. Time-split validation is more prospective-like than a random split but remains a retrospective reconstruction from one database release \citep{sheridan2013timesplit}.
+
+\begin{table}[t]
+\centering
+\caption{BioContext-Disagreement cohorts. Evaluable refers to the class-support rule for the macro metric, not independent biological replicates.}
+\label{tab:cohorts}
+\small
+\begin{tabular}{@{}p{1.7in}p{0.8in}p{1.05in}p{1.8in}@{}}
+\toprule
+Analysis & Test rows & Evaluable groups & Holdout rule \\
+\midrule
+Known assay pair & 3,648--4,258 & 24--29 assay pairs & Chemical family \\
+Strict cellular-context screen & 1,951--2,503 & 13 assay pairs & Family + screen \\
+Scaffold sensitivity & 3,232--6,366 & 20--41 assay pairs & Murcko scaffold \\
+Series sensitivity & 2,568--7,394 & 18--27 assay pairs & Tanimoto component \\
+Unseen assay-pair transfer & 3,967--5,000 & 342--360 targets & New source + family \\
+Semi-prospective transfer & 20,160 & 293 targets & 2021--2025 + new source/family \\
+Ki sensitivity & 190--220 & 0--1 assay pair & Chemical family \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{BioContext-GINE}
+
+BioContext-GINE is designed for a known assay transition, not to predict a single-assay potency. It builds on the GIN neighborhood-aggregation family \citep{xu2019gin} and its edge-feature extension \citep{hu2020strategies}. For molecule $m$, let $G_m=(V_m,E_m)$ be its RDKit graph with atom features $x_v$ and directed-bond features $e_{uv}$, $f_m\in\{0,1\}^{2048}$ the radius-2 chirality-aware circular fingerprint \citep{rogers2010ecfp}, and $d_m\in\mathbb R^{11}$ the standardized global descriptors. Let $q_A,q_B$ be the learned vectors formed from legal assay text/context features and $z_t$ the target vector. The order-invariant transition representation is
+\[
+c_{tAB}=\left[z_t\,\Vert\,(q_A+q_B)\,\Vert\,|q_A-q_B|\,\Vert\,(q_A\odot q_B)\right],
+\]
+where $\Vert$ is concatenation. This construction makes $c_{tAB}=c_{tBA}$ and consequently forces the prediction to be invariant to the arbitrary ordering of the two assays.
+
+Five context-FiLM GINE layers update an atom state using its neighbors and bond features,
+\[
+\bar h_v^{(\ell+1)}=\mathrm{MLP}_{\ell}\!\left((1+\epsilon_\ell)h_v^{(\ell)}+
+\sum_{u\in\mathcal N(v)}\mathrm{ReLU}\!\left(h_u^{(\ell)}+e_{uv}\right)\right),
+\qquad
+h_v^{(\ell+1)}=\gamma_\ell(c_{tAB})\odot\bar h_v^{(\ell+1)}+\beta_\ell(c_{tAB}).
+\]
+Mean, maximum, and context-attentive pooling of every layer are joined with learned jump weights to give $g_m$. A fingerprint branch gives $b_m=\mathrm{MLP}_f(f_m)$ and a descriptor branch gives $r_m=\mathrm{MLP}_d(d_m)$. The final probability is
+\[
+\hat p_{mtAB}=\sigma\!\left(\mathrm{MLP}_o\!\left([g_m\Vert b_m\Vert r_m\Vert c_{tAB}]
++\alpha\,\phi_m([g_m\Vert b_m\Vert r_m])\odot\phi_c(c_{tAB})\right)\right),
+\]
+where $\alpha$ is initialized near zero so that the model first learns additive molecular and context effects before expanding their interaction. Assay, document, pair, and molecule identifiers; query activities; and scores from another model are excluded from the input.
+
+For a training row $i$, $w_i=1/n_i$ is the inverse number of rows produced by its molecule--target--endpoint identity. We minimize weighted binary cross-entropy plus a within-assay-pair ranking term,
+\[
+\mathcal L=\frac{\sum_i w_i\,\mathrm{BCE}(y_i,\hat p_i)}{\sum_iw_i}
++\lambda\,\frac{1}{|\mathcal P|}\sum_{(i,j)\in\mathcal P}
+\log\!\left[1+\exp\!\left(-[s_i-s_j]\right)\right],
+\]
+where $\mathcal P=\{(i,j):\mathrm{pair}(i)=\mathrm{pair}(j),y_i=1,y_j=0\}$ and $s$ is the pre-sigmoid score. Thus the second term directly optimizes the intended within-transition ordering rather than a global class ranking. Early stopping uses tuning pair-macro AP; a logistic Platt map $\mathrm{logit}(\tilde p)=a s+b$ is fitted only on the calibration partition \citep{platt1999probabilistic}. We report pair-macro AUROC/AP as unweighted means over eligible assay pairs and uncertainty as the standard deviation over the five fixed family-disjoint partitions; the reported gain interval uses a dependency-component bootstrap. Reporting AP alongside AUROC is important because the positive class is not balanced \citep{davis2006pr,saito2015pr}.
+
+We use an edge-GINE with the same legal inputs and loss as an architectural comparator, together with graph-only, descriptor-only, and capacity-matched fingerprint-MLP neural ablations. We additionally fit lightweight linear logistic, linear-SVM, and MLP baselines on the same split-local legal feature blocks. For computationally stable CPU training, their 2,048 Morgan bits are projected to 128 Gaussian random features fitted on the training partition; assay and target features, weighting, and calibration remain unchanged.
+
+\section{Statistical analysis}
+
+The primary estimand is compound ordering within a known assay transition. AUROC and average precision (AP) are therefore calculated separately for every eligible assay pair and then averaged with equal pair weight. Eligibility requires at least ten test rows and at least three positive and three negative examples; it is fixed before examining predictions. AP is reported together with AUROC because it retains sensitivity to the positive-class prevalence \citep{davis2006pr,saito2015pr}. Micro metrics are used only as secondary summaries because they allow large assay pairs to dominate.
+
+Five predeclared chemical-family partitions assess sensitivity to the grouped split. Their mean and standard deviation summarize robustness to partition assignment; they are not treated as five independent biological cohorts. Error bars in Fig.~\ref{fig:performance}A--B are 95\% $t$ intervals across these fixed partitions. Pre-specified model contrasts use 5,000 bootstrap resamples of dependency components formed by connecting rows that share a molecule family or assay pair. This preserves the major dependence structure during resampling. The asterisks comparing BioContext-GINE with the linear baselines use a paired, one-sided Wilcoxon test across the five partitions and are interpreted only as split-level robustness checks.
+
+For molecular-property analysis, standardized positive-minus-concordant differences are first calculated within each assay pair and then averaged equally across pairs. Confidence intervals are obtained by pair bootstrap. Continuous associations use within-pair Spearman correlation between each property and $|\Delta pIC_{50}|$. Target-class prevalence is calculated per target before class-level averaging, with target bootstrap intervals. These eleven property analyses were predeclared but remain exploratory; intervals are not multiplicity adjusted, and an interval excluding zero is marked with an asterisk in Fig.~\ref{fig:analysis}E. All tests are two-sided unless a directional alternative is explicitly stated. Exact row, pair and resampling counts accompany each result so that statistical significance is not mistaken for biological effect size.
+
+Secondary phenotype-coherence analyses are calculated within the same eligible assay pairs. We report the Spearman association of model score with continuous absolute disagreement and compare observed positive fractions in the highest and lowest within-pair score quartiles. An extreme-phenotype sensitivity excludes intermediate rows and contrasts $|\Delta|<0.5$ with $|\Delta|\geq1.5$, retaining the same minimum class-support rule. Source-document distributions are compared with the two-sample Kolmogorov--Smirnov statistic. No secondary analysis is used for model selection or hyperparameter tuning.
+
+To isolate context dependence, we refit BioContext-GINE after replacing all assay-pair and target inputs by constants in every message-passing, attention and prediction layer; molecular inputs, parameterization, partitions and objective were otherwise unchanged. We also calculated BioContext-GINE minus fingerprint-MLP AUROC/AP within each eligible assay pair. Finally, we stratified all paired rows by same- versus cross-document lineage and by deterministic, high-specificity keywords for biological system (cellular, membrane/tissue, purified/recombinant or not reported) and readout (radiometric, fluorescence, luminescence, absorbance, separation/MS or not reported). A pair is labelled ``changed'' when its two assays fall into different categories. Missing metadata are retained as not reported rather than inferred; these strata describe plausible sources of discordance and are not causal assignments.
+
+\section{Results}
+
+\subsection{BioContext-GINE resolves compound-level discordance within assay transitions}
+
+An assay-pair prior captures the average propensity of a transition to disagree, but is constant for every compound within that transition and therefore cannot prioritize individual molecules (pair-macro AUROC 0.500; AP $0.572\pm0.025$). BioContext-GINE resolves this compound-level heterogeneity, reaching pair-macro AUROC $0.730\pm0.031$ and AP $0.761\pm0.045$ across the five family-disjoint tests. The simpler edge-GINE reaches $0.679\pm0.016$ AUROC and $0.747\pm0.026$ AP. The 0.051 AUROC increment has a dependency-component bootstrap 95\% CI of 0.004--0.087; the corresponding AP increment is directionally positive but its interval includes zero. Thus, the model provides a reproducible ranking signal, while the limited number of evaluable assay pairs constrains biological generalization.
+
+Representation ablations show that no single molecular view explains the result. Graph plus descriptors achieves $0.679\pm0.016$ AUROC and $0.747\pm0.026$ AP; graph-only and descriptor-only variants achieve $0.605\pm0.073$/$0.700\pm0.028$ and $0.630\pm0.058$/$0.714\pm0.049$, respectively. The capacity-matched fingerprint MLP, which receives the same symmetric assay and target context, reaches $0.717\pm0.010$ AUROC and $0.745\pm0.028$ AP. BioContext-GINE improves on it by only 0.013 AUROC (dependency-bootstrap 95\% CI $-0.032$ to 0.065) and 0.016 AP ($-0.009$ to 0.047). These intervals include zero: the joined graph representation gives the strongest neural point estimate, but this benchmark does not establish that graph message passing is necessary relative to a well-tuned fingerprint/context network.
+
+Removing biological context answers a different question. When all assay-pair and target vectors are replaced by constants while leaving the molecular encoder and optimization unchanged, AUROC falls from 0.730 to $0.690\pm0.020$ and AP from 0.761 to $0.743\pm0.035$. The decreases occur in all five fixed partitions (mean differences 0.040 and 0.018; one-sided paired Wilcoxon $P=0.031$ for each metric). Thus context contributes beyond a global molecular propensity to disagree. However, the gain over the fingerprint/context MLP is heterogeneous: among 133 eligible pair--seed instances, BioContext-GINE has higher AUROC in 48.9\% and higher AP in 50.4\%, with median differences of 0.000 and 0.0003. A few assay transitions benefit substantially and others favour fingerprints, so the aggregate point estimate should not be read as uniform graph superiority.
+
+The additional lightweight baselines give the same qualitative ordering. A reduced-feature MLP reaches $0.691\pm0.022$ AUROC and $0.733\pm0.032$ AP. Linear SVM reaches $0.571\pm0.017$/$0.676\pm0.033$, and linear logistic reaches $0.566\pm0.042$/$0.652\pm0.038$ (AUROC/AP). Nonlinear molecular/context combinations therefore recover useful signal, whereas the linear baselines are only modestly above the pair prior. BioContext-GINE is the only proposed method, but the capacity-matched fingerprint MLP is the relevant performance comparator.
+
+The macro average conceals meaningful variation among biological assay transitions. Across 133 eligible pair--seed instances, the median BioContext-GINE AUROC is 0.750 (IQR 0.626--0.871) and the median AP is 0.863 (IQR 0.592--0.962). AUROC exceeds 0.5 in 87.2\% of instances and reaches at least 0.70 in 65.4\%. Thus, the overall gain is not generated by a single exceptional target, although a minority of transitions remain uninformative. Those failures are biologically important: two assays can differ in a way that is approximately constant across a chemical series, or their shared molecules may not span the structural features that modulate the difference. The model is designed to identify compound-dependent heterogeneity and should not be expected to rank compounds when the assay shift is uniform.
+
+Model scores also track the magnitude of the phenotype rather than only the binary cutoff. Within eligible assay pairs, the mean Spearman correlation between predicted risk and continuous $|\Delta pIC_{50}|$ is 0.365 (median 0.418; IQR 0.189--0.594), and 87.2\% of pair--seed correlations are positive. Compounds in the highest within-pair score quartile have a mean observed discordance rate of 0.742, compared with 0.398 in the lowest quartile, an absolute enrichment of 0.344. When the analysis is restricted to a more separated phenotype---$|\Delta|<0.5$ versus $|\Delta|\geq1.5$---the model reaches mean pair-level AUROC 0.758 and AP 0.826. Only 18 pair--seed instances meet the class-support criterion in this extreme comparison, so the estimates support biological coherence but are not a second powered benchmark.
+
+Calibration provides a complementary view of usefulness for experimental triage. Across the five held-out test partitions, BioContext-GINE has Brier score $0.087\pm0.006$ and log loss $0.295\pm0.021$. The seed-17 calibration curve remains close to the identity line over most of the observed range, with larger deviations in sparsely populated high-risk bins (Fig.~\ref{fig:performance}D). Consequently, scores are most defensible for ranking and risk stratification within a known assay pair; a numerical probability should not be transferred unchanged to an unseen assay system.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figure/figure2_performance.pdf}
+\caption{Performance within known transitions and beyond them. (A,B) Pair-macro AUROC and AP across five family-disjoint tests. Dots are fixed split estimates; large dots and error bars indicate mean and 95\% $t$ intervals. Asterisks mark BioContext-GINE versus linear-baseline contrasts with one-sided paired Wilcoxon $P<0.05$; they are robustness summaries, not independent biological replicates. (C) Seed-wise robustness of the proposed model, capacity-matched fingerprint/context MLP and edge-GINE. (D) Held-out calibration on seed 17. (E,F) Controlled neural representation ablations. (G) Target-level transfer when chemical families and one or both assay sources are held out. (H) Semi-prospective transfer from records dated through 2020 to dual-new-source, novel-family records dated 2021--2025. Panels G--H use a different estimand from A--F and show weak context transfer rather than confirmation of the known-pair claim.}
+\label{fig:performance}
+\end{figure}
+
+\subsection{Generalization to unseen biological contexts is weak}
+
+Track B tests a harder and practically distinct question: can a model rank discordance for targets when the test chemical family and assay source are absent from training? Across 748 evaluable target--seed instances, BioContext-GINE reaches target-level AUROC 0.572 and AP 0.580. The fingerprint/context baseline reaches 0.580 AUROC and 0.584 AP, and the reduced-feature nonlinear MLP reaches 0.587/0.592. Results are similar when both rather than one assay source are held out: BioContext-GINE reaches target AUROC 0.563 and AP 0.613, versus 0.574/0.619 for the fingerprint/context baseline. Removing near-duplicate assay-description transfer does not reverse this ordering. The model therefore carries a weak target-level signal into new contexts, but BioContext-GINE has no demonstrated advantage there.
+
+The time split gives a semi-prospective stress test rather than a substitute for new experiments. The test set contains 20,160 paired rows, 7,510 historically novel families, 629 targets, 5,083 assays and 1,754 documents dated 2021--2025, with zero assay, document or family overlap with the pre-2021 training pool. Edge-GINE reaches target-macro AP $0.488\pm0.010$ and micro AUROC $0.595\pm0.016$; fingerprint/context and reduced-feature MLP baselines reach target-macro AP $0.507\pm0.007$ and $0.513\pm0.010$, respectively. This result is useful precisely because it is less favourable: temporal novelty and unseen assay systems expose distribution shift that the graph architecture does not solve. We therefore define the validated use case as prioritization inside a previously observed assay transition with local analogue support. Prediction for a new transition is hypothesis generation only and requires calibration or experimental confirmation.
+
+The strict cellular-context screen leaves 81,151 pair rows and 211 supported pairs after recomputing support. In this more restricted biochemical-like subset, the matched edge-GINE retains pair-macro AUROC $0.700\pm0.049$ and AP $0.746\pm0.016$, although only 13 pairs per split are evaluable. This is consistent with the primary direction after removing explicitly cellular contexts, but it narrows rather than expands the biological domain of the claim. The small Ki analysis has only four evaluable pair--seed estimates and is reported as a non-confirmatory endpoint sensitivity.
+
+Three construction sensitivities indicate that the result is not driven by a fragile curation boundary. First, increasing minimum assay-pair support from 30 to 50, 75 and 100 shared molecules reduces the cohort from 368 to 199, 90 and 69 pairs, but the matched edge-GINE AUROC remains 0.679, 0.691, 0.689 and 0.681, respectively. Higher support therefore improves certainty per pair without materially changing discrimination. Second, training the same comparator at discordance thresholds of 0.5, 1.0 and 1.5 log units gives AUROC 0.577, 0.679 and 0.652. One log unit provides the clearest signal, consistent with a threshold large enough to exceed routine variation but common enough to retain class support. Third, replacing the within-assay median replicate aggregation with a mean changes only four labels among 19,748 held-out row instances across all partitions (99.98\% agreement). The principal phenotype is therefore insensitive to the summary statistic used for the small number of replicated records.
+
+\subsection{The biologically useful domain is local chemical coverage}
+
+Under global Murcko-scaffold holdout, the matched edge-GINE has pair-macro AUROC/AP $0.618\pm0.075$/$0.635\pm0.067$. Under the more stringent connected-series holdout, it falls to $0.500\pm0.046$/$0.493\pm0.120$. This is the critical distinction between chemical-series recognition and transferable assay-context sensitivity: the primary split removes exact connectivity families, but related analogues remain; once similarity-connected series are separated, the apparent assay-conditioned molecular rule does not generalize. Molecular benchmarks can reward such neighbourhood coverage even when remote-chemotype transfer is absent \citep{wallach2018memorization,liu2019domain}.
+
+A direct coverage audit makes the same point without fitting a second model. For each test molecule, we found its most similar training molecule within the same assay pair. Across the five primary partitions, 16,401 of 19,748 test rows (83.1\%) have a same-pair analogue with Tanimoto similarity $\geq0.70$. Only 132 and 860 rows fall in the 0--0.3 and 0.3--0.5 bins, respectively, and neither contains an assay pair meeting the class-support rule. The 0.5--0.7 bin yields only four evaluable pair--seed groups (AUROC 0.667), compared with 20 at 0.7--0.8 (0.643) and 66 at 0.8--1.0 (0.711). These are not monotone estimates and should not be converted into a universal similarity cutoff; their central message is support. We define the operational applicability domain as a known assay pair with at least 30 historical shared molecules and at least one same-pair training analogue at Tanimoto $\geq0.70$. Rows outside this domain may still be scored, but are flagged as extrapolative and are not assigned the calibrated-risk interpretation.
+
+\subsection{Metadata strata separate broad sources of discordance but not causality}
+
+The one-log label combines several phenomena. Document lineage provides the most direct decomposition: cross-document rows have 36.5\% positives and median $|\Delta|=0.679$, versus 26.1\% and 0.449 within one document. Text-derived biological-system categories add a second axis. Pairs that change category between cellular, membrane/tissue, purified/recombinant or unreported systems have 44.3\% positives and median $|\Delta|=0.866$; same-category cellular and purified/recombinant pairs have 26.6\% and 21.8\% positives, respectively. Likewise, pairs changing annotated readout class have 39.6\% positives and median $|\Delta|=0.756$, compared with 17.6\% for fluorescence--fluorescence and 22.5\% for radiometric--radiometric pairs.
+
+These contrasts show that the label is enriched when multiple experimental axes change together, but they do not identify measurement error. Protein source, biological system and detection format are incompletely recorded, and 61,257 biological-system pair rows and 68,864 readout rows remain not reported in the same-category group. Moreover, the graph-versus-fingerprint gain does not map cleanly to one metadata class. Its mean AUROC increment is 0.026 for biological-system-changing transitions and 0.081 for same-category cellular transitions, but $-0.044$ for purified/recombinant transitions; these strata contain only 17, 9 and 9 unique evaluable assay pairs. BioContext-GINE therefore appears to exploit idiosyncratic transition-local SAR rather than a single metadata shortcut. The source stratification narrows hypotheses for review; only controlled perturbations can distinguish protocol variance, exposure effects and genuine ligand--context biology.
+
+\subsection{Molecular correlates of discordance are modest and context dependent}
+
+To ask whether the phenotype has a recognizable molecular signature, we calculated eleven prespecified RDKit properties within every supported assay pair and equally weighted pair-level effects so that heavily sampled transitions could not dominate. In the binding-classified cohort, discordant molecules have lower molecular weight (standardized mean difference $-0.124$, 95\% pair-bootstrap interval $-0.227$ to $-0.018$), fewer hydrogen-bond acceptors ($-0.110$, $-0.204$ to $-0.013$), fewer rotatable bonds ($-0.195$, $-0.281$ to $-0.107$), and fewer heavy atoms ($-0.148$, $-0.253$ to $-0.039$) than concordant molecules from the same assay pair.
+
+After the strict cellular-context screen, the lower-rotatable-bond direction remains ($-0.197$, $-0.323$ to $-0.069$), as does lower topological polar surface area ($-0.199$, $-0.366$ to $-0.030$). In contrast, logP, ring count, aromatic-ring count, and fraction sp$^3$ have intervals spanning zero in both cohorts. Continuous within-pair associations with $|\Delta pIC_{50}|$ are also small. The data therefore do not support a universal fragile chemotype. They instead suggest that, after holding an assay transition fixed, large cross-assay differences are somewhat enriched among smaller, less flexible molecules, with the exact profile dependent on the retained experimental contexts.
+
+The continuous analysis sharpens this interpretation. Mean within-pair Spearman correlations with $|\Delta pIC_{50}|$ are $-0.043$ for heavy-atom count, $-0.042$ for molecular weight, $-0.032$ for hydrogen-bond acceptors and $-0.026$ for rotatable bonds. Their directions agree with the binary effects, but their magnitudes are small. Hydrogen-bond donors show a weak correlation in the opposite direction ($0.023$), and logP is essentially null ($-0.0001$). These results argue against a simple explanation based on nonspecific hydrophobicity or molecular complexity. A more plausible reading is that individual substituents modulate how a ligand responds to a particular protein preparation, free-concentration environment or kinetic protocol; the relevant structural feature can therefore differ from one assay transition to another.
+
+This context dependence also explains why target-class prevalence should not be treated as a molecular mechanism. Ion-channel and transporter classes have the highest point estimates after the cellular screen, but also the widest intervals because only 25 and 20 targets contribute, respectively. Kinases provide 361 targets and a narrower, lower estimate. This pattern can arise from differences in assay diversity, source-document composition and chemical-series coverage as well as protein biology. Target class is therefore useful for describing the resource, but the predictive unit remains a specific target and assay pair. Prospective experiments will be required to determine whether the class-level pattern survives matched protocols and balanced sampling.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figure/figure3_model_analysis.pdf}
+\caption{Disentangling analogue coverage from assay-context signal. (A) Distribution of nearest same-pair training-neighbour similarity. (B) Observed prevalence and mean model risk in ordered coverage bins. (C) Pair-macro AUROC is estimable only where enough assay-pair/class support exists; error bars are standard deviations across fixed splits. (D) BioContext-GINE minus fingerprint-MLP AUROC varies widely across 133 pair--seed instances. (E) Controlled representation ablations, including replacement of all assay/target context by constants. (F) Discordance prevalence by text-derived biological-system transition; ``changed'' denotes different categories for the two assays. (G) Pair-stratified molecular-property effects; asterisks mark 95\% pair-bootstrap intervals excluding zero without multiplicity adjustment. (H) Performance under primary, scaffold and connected-series splits. Panels A--F establish a local applicability domain and do not prove a causal assay mechanism.}
+\label{fig:analysis}
+\end{figure}
+
+\subsection{Matched analogues reveal experimentally testable context sensitivity}
+
+Activity-cliff analysis is commonly used to reveal large functional changes among close analogues \citep{bajorath2012cliffs,dimova2016cliffs}. Matched molecular pairs provide a chemically interpretable way to formalize a one-site transformation \citep{hu2012mmpcliffs}. We adapt these ideas to cross-assay disagreement. A candidate disagreement cliff requires two molecules from the same target and assay pair with Morgan Tanimoto similarity at least 0.70, one concordant observation ($|\Delta|<0.5$), and one discordant observation ($|\Delta|\geq1.5$). The complete resource contains 1,926 such candidates across 462 assay-pair identifiers; 635 candidates across 211 pairs remain after the explicit cellular-context screen.
+
+From this set, we required a single-site matched molecular-pair transformation, the same target and assay transition, and manual review of activity lineage, unit conversion, assay text, and document metadata. Four cases passed this audit. They span purified DHODH formats, EP3 radioligand displacement, cross-source aromatase preparations, and factor Xa enzyme protocols. The structural edits are phenol-to-methyl, chloro-to-methoxy, hydroxyl deletion, and chloro-to-bromo, respectively. Their documented condition axes include enzyme concentration, temperature, DMSO, serum, source preparation, and chromogenic-substrate protocol.
+
+\paragraph{Case I: a DHODH analogue reverses behaviour between enzyme protocols.}
+The phenol-containing compound is concordant at 750 and 849 nM ($|\Delta|=0.054$), whereas replacing the phenolic hydroxyl with methyl gives 5.33 nM in assay A and 13,000 nM in assay B ($|\Delta|=3.387$; Fig.~\ref{fig:cases}A,E). This is not a uniform potency shift: the edited analogue becomes markedly more potent in one format and less potent in the other. The two purified human DHODH assays differ simultaneously in enzyme concentration, temperature, DMSO fraction and dispensing procedure. Enzyme concentration can influence apparent IC$_{50}$ when inhibitor and enzyme are not in a simple free-equilibrium regime, while temperature and solvent can alter turnover, compound solubility, colloidal state and protein stability. The edit removes the only phenolic donor in this pair and replaces it with methyl; it therefore makes a large local polarity perturbation without making the whole molecule ``purely hydrophobic.'' Using the supplied EPA/WATERNT local-fragment screen, aromatic OH$\rightarrow$CH$_3$ gives $\Delta F=-1.9791$ and a score of 5(-), i.e., a predicted large decrease in local aqueous-solubility contribution \citep{epa_waternt}. This direction supports an exposure hypothesis, but it is not a measured $\Delta\log S$ and cannot establish the cause of the crossover. A decisive follow-up would test both analogues against the same enzyme preparation in a matrix varying enzyme concentration and DMSO independently, with kinetic solubility, dynamic light scattering (or an orthogonal particle assay), and detergent-reversal controls. The retrospective record identifies this experiment but cannot specify which axis causes the crossover.
+
+\paragraph{Case II: serum selectively exposes an EP3 potency shift.}
+The chloro analogue gives 2.0 and 2.2 nM in radioligand displacement without and with 10\% human serum, respectively. The methoxy analogue gives 0.70 nM without serum but 651 nM with serum, a 930-fold separation ($|\Delta|=2.968$; Fig.~\ref{fig:cases}B,F). Serum proteins regulate the unbound concentration available to engage a receptor \citep{trainor2007proteinbinding}; a substituent change can therefore alter the apparent serum shift even when nominal compound concentration is unchanged. Chloro-to-methoxy also changes polarity and hydrogen-bond acceptance, so differential protein binding is plausible. The supplied EPA screen ranks the generic chloro$\rightarrow$methoxy change as a large positive local solubility perturbation (4(+)); because this case is aromatic whereas the supplied worked coefficient is aliphatic, we use the result only as a direction-of-change hypothesis, not as a numerical calculation for this structure. It is not measured in this study, however, and serum may additionally affect nonspecific adsorption, colloidal state, or radioligand accessibility. Equilibrium dialysis or ultrafiltration at the assay concentrations, followed by EP3 displacement indexed to unbound rather than nominal ligand and a particle/detergent control, would directly test the free-concentration hypothesis.
+
+\paragraph{Case III: aromatase source and membrane preparation covary with a hydroxyl edit.}
+The hydroxylated flavonoid-like analogue is concordant between human placental-microsome CYP19 inhibition and the second aromatase record (900 versus 1,200 nM). Deleting one phenolic hydroxyl yields 1 nM in the placental-microsome assay and 500 nM in the assay of unspecified enzyme origin ($|\Delta|=2.699$; Fig.~\ref{fig:cases}C,G). Aromatase is a membrane-associated cytochrome P450 whose catalytic access path and activity depend on membrane anchoring and reductase coupling \citep{ghosh2009aromatase}. A hydroxyl deletion can change membrane partitioning, orientation and active-site hydrogen bonding, making preparation dependence biologically credible. The same EPA local-fragment comparison predicts a large negative aqueous-solubility contribution for phenolic OH removal; it is concordant with the expected direction of this local edit, but cannot represent membrane partitioning, crystal packing, ionization, or protein binding. Nevertheless, the assays originate from separate reports and differ in incompletely documented ways, so neither membrane environment nor the substituent can be assigned causally. Reconstitution of both compounds with a common CYP19A1/reductase system, followed by comparison with placental microsomes, would separate intrinsic enzyme recognition from preparation-dependent partitioning.
+
+\paragraph{Case IV: a halogen substitution is amplified across factor Xa readouts.}
+The chloro analogue differs only twofold between the two factor Xa records (0.7 versus 1.4 nM), whereas the bromo analogue gives 0.4 versus 300 nM ($|\Delta|=2.875$; Fig.~\ref{fig:cases}D,H). Chlorine-to-bromine conserves the scaffold but changes steric volume and polarizability; such an edit could alter a local binding contact, yet that explanation alone would not predict why the effect is restricted to one assay. The second source uses a detailed chromogenic-substrate protocol. Apparent inhibitor potency in a competitive enzyme assay depends on substrate regime \citep{cheng1973ic50}, and factor Xa chromogenic readouts can additionally be influenced by substrate-product kinetics \citep{stobb2019chromogenic}. Testing both analogues across a substrate-concentration series and fitting $K_i$, rather than comparing a single IC$_{50}$, would determine whether the large separation is kinetic or source specific.
+
+These cases are biological hypotheses rather than mechanistic proof. Several condition changes covary within a source record, and the source data do not provide a compound-keyed numerical table for verbatim reproduction. Nevertheless, the combination of a minimal chemical edit, traceable raw measurements and a documented assay axis identifies concrete follow-up experiments: retest a matched pair while varying one condition at a time, and ask whether the compound-level discordance is preserved.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figure/figure4_casebook.pdf}
+\caption{Eight-panel casebook of source-linked cross-assay disagreement cliffs. (A--D) Four single-site matched molecular-pair transformations retain high molecular similarity but change cross-assay disagreement from concordant to discordant. (E--H) Exact-nM values converted to $pIC_{50}$ and the documented condition axes that can plausibly amplify the observed difference: enzyme concentration, temperature, DMSO and dispensing (I); serum (II); enzyme preparation and source (III); and cross-source protocol/substrate context (IV). These covarying conditions explain why the observations merit review but do not establish a causal measurement-error mechanism.}
+\label{fig:cases}
+\end{figure}
+
+\begin{table}[t]
+\centering
+\caption{Archived provenance for the four matched molecular-pair examples.}
+\label{tab:caseprovenance}
+\small
+\renewcommand{\arraystretch}{1.16}
+\begin{tabular}{@{}p{0.42in}p{0.78in}p{1.28in}p{3.72in}@{}}
+\toprule
+Case & Target & Assays & Archived material or condition axis \\
+\midrule
+I & DHODH & 5735966 / 5735967 & Purified recombinant enzyme; Novus, 2 nM, 32 $^\circ$C, 2\% DMSO versus Origene, 0.4 $\mu$g mL$^{-1}$, room temperature, 0.17\% DMSO. \\
+II & EP3 & 963081 / 963082 & [$^3$H]PGE2 displacement; archived description contrasts 0 and 10\% human serum. \\
+III & Aromatase & 1105634 / 3624595 & Human placental microsomes versus aromatase of unspecified origin in a separate source. \\
+IV & Factor Xa & 880442 / 3705525 & Human factor Xa at 25 $^\circ$C for 10 min versus a later detailed chromogenic-substrate protocol. \\
+\bottomrule
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+\end{table}
+
+\section{Discussion}
+
+This study reframes cross-assay potency discordance as a ligand-specific phenotype. Conventional \emph{data} aggregation asks how to obtain one activity value for a molecule and target. BioContext-Disagreement instead asks how that molecule behaves when the experimental system changes. This shift preserves an important biological distinction: an assay transition can produce a shared offset affecting most compounds, or it can interact with chemical structure so that only part of a series changes. The former is a property of the two measurement systems; the latter contains compound-level information that can be learned and tested. BioContext-GINE is designed for the second setting.
+
+The resource exposes how rarely public bioactivity data support this question at scale. Although the complete pairing contains more than 83,000 assay-pair identifiers, fewer than 400 include 30 shared molecules. Most apparent opportunities for cross-assay comparison are therefore single observations rather than replicated chemical series. The supported subset is also enriched for same-document comparisons, because systematic testing of a series in two formats is more likely to be reported together. Cross-document rows remain more discordant, consistent with the greater number of uncontrolled experimental axes introduced by separate laboratories and reports. These observations argue for retaining assay and document lineage as primary data rather than treating them as optional annotations. They also explain why a large database does not automatically yield a large effective sample size for context-aware biology.
+
+BioContext-GINE provides evidence that molecular structure can resolve heterogeneity within a known transition. Removing assay/target context produces a consistent decrement, establishing that a global ``discordance-prone molecule'' score is insufficient. The stronger claim---that graph message passing is necessary---is not established: the fingerprint/context MLP lies within the uncertainty interval of BioContext-GINE, and pair-level gains are centred near zero with broad tails. The most defensible interpretation is therefore two-part. First, there is a real but modest molecular--context interaction signal inside represented transitions. Second, much of its recoverability comes from local analogue coverage, for which circular fingerprints are already strong. The graph architecture is useful for a subset of assay pairs, not universally superior.
+
+The model's domain of applicability is equally informative. Performance persists when exact connectivity families are separated, but attenuates under scaffold holdout and disappears when similarity-connected series are kept intact. Track B and the temporal split extend that conclusion from chemistry to biology: unseen assay sources retain only weak target-level signal, and simple fingerprint/context baselines equal or exceed the graph model. Context sensitivity therefore often follows local SAR within a familiar experimental transition; it is not a general rule that transfers to unrelated chemotypes or unobserved assay pairs. The positive within-pair association between score and continuous $|\Delta pIC_{50}|$ supports prioritizing analogues near known chemical matter. A high-confidence prediction for a remote scaffold or new assay pair would exceed the evidence.
+
+The physicochemical analysis provides a second guard against overgeneralization. Discordant molecules are modestly smaller and less flexible within assay pairs, but logP, ring count, aromaticity and fraction sp$^3$ show no consistent binary effect. Continuous correlations are weak even when their intervals exclude zero. There is therefore no single ``error-prone'' molecular class. Smaller or more rigid molecules may be more sensitive to a discrete contact or protocol-dependent kinetic regime, but this is only one possible explanation. The matched-pair examples make the context specificity more tangible: serum can change unbound ligand concentration, membrane preparation can alter access to aromatase, and substrate/product kinetics can influence enzyme inhibition readouts. Each mechanism is plausible for one case and insufficient as a universal account of the dataset.
+
+An additional, unmeasured exposure mechanism is molecular self-association. This must be distinguished from designed polymeric micelles or other macromolecular drug-delivery systems. The resource was constructed for small-molecule activity records and has no explicit annotation of formulation carriers or polymeric micelles; nevertheless, ordinary drug-like organic molecules can themselves form colloidal aggregates in aqueous assay buffer \citep{feng2018colloidal}. Near their critical aggregation concentration, modest changes in a substituent, DMSO carryover, ionic composition, protein preparation or dispensing history can change particle formation and the free monomer concentration. This can either depress apparent availability or, for enzyme assays, yield detergent-reversible promiscuous inhibition through protein adsorption \citep{mcgovern2002detergent}. It is consequently a plausible source of condition-sensitive signal, especially in the DHODH case where DMSO and enzyme preparation change together, but this dataset contains no observation that can diagnose it. We deliberately treat it as a falsifiable alternative, not as a black-box explanation assigned by the model.
+
+The supplied EPA/WATERNT fragment-constant exercise is useful at this hypothesis-generation level. WATERNT estimates whole-molecule water solubility from fragment and correction terms \citep{epa_waternt}; by cancelling the unchanged scaffold, we used it only as a signed local substituent index. It recovers the expected large negative direction for phenolic OH removal in Cases I and III and a positive direction for the generic chloro-to-methoxy example. This is intentionally less elaborate than atom-fragment logP calculations such as Wildman--Crippen \citep{wildman1999prediction}. Hansch $\pi$ constants are valuable substituent descriptors, but their aromatic reference-series origin limits direct use for aliphatic substitutions \citep{hansch1979substituent}. Neither comparison makes the EPA screen a validated solubility model: the local score omits its full-molecule correction terms, pH and ionization, salt form, solid state, polymorph, melting point, intramolecular hydrogen bonding, and aggregation. The supplied numeric chloro-to-methoxy example is aliphatic while Case II is aromatic, so its score is not reported as a structure-exact value. The score should therefore be read as a transparent ranking of local perturbations, not predicted $\Delta\log S$, and cannot validate a mechanism or replace direct solubility/free-concentration measurement.
+
+This distinction also clarifies a common medicinal-chemistry intuition. Optimizing polarity or lipophilicity can be highly effective for distribution and permeability, but it changes what a fixed-stock, fixed-DMSO assay actually exposes to the target. Dopamine versus methamphetamine is not a valid one-methyl matched-pair example---they differ in scaffold and pharmacology---so it cannot support a causal claim here. The relevant design principle is narrower: even a one-site methylation or heteroatom edit can alter hydration, ionization, free fraction, membrane partitioning, and sometimes self-association. A potency value generated from a fixed nominal stock is consequently conditional on that assay's solvent and delivery protocol, rather than a context-free molecular constant.
+
+This distinction changes how model scores should be used. A high BioContext-GINE score should trigger inspection of the two assay descriptions, the underlying concentration--response records and close analogues. It should not trigger automatic deletion of either value. In a data-curation workflow, high-scoring rows could be routed to a context-sensitive tier rather than merged into a target-level consensus. In experimental design, a discordant analogue and a concordant matched partner provide a controlled pair for testing serum fraction, enzyme concentration, substrate concentration, protein construct or detection technology. The model thus connects retrospective database heterogeneity to a prospective experiment with an explicit negative control.
+
+Several limitations constrain inference. First, the one-log-unit label is operational and deliberately heterogeneous: it does not decompose fitting error, protocol variation, source-document effects, ligand-dependent biology, solubility loss, or colloidal aggregation. Metadata stratification exposes this mixture but cannot resolve it because protein source, construct, stock preparation, DMSO carryover, detergent, and readout fields are often missing. Second, the five primary partitions overlap in biological content and only 45 unique assay pairs satisfy the evaluation criterion. Third, the nearest-neighbour bins are highly imbalanced; below Tanimoto 0.5 no pair meets the macro-metric support rule. Fourth, the unseen-context and temporal evaluations use target-level rather than within-pair estimands, so their absolute metrics are not directly comparable with the primary task. Fifth, IC$_{50}$ dominates the resource, the Ki cohort is too small for endpoint replication, and property intervals are exploratory and unadjusted. Finally, the time split is only semi-prospective: every case was already present in ChEMBL37, and the matched-pair examples lack new compound-keyed replication.
+
+A prospective validation should therefore preserve the paired structure of the problem. Before any new values are observed, each target would contribute high- and low-score compounds matched on chemical series, baseline potency and same-pair neighbour similarity. Both groups would be tested in both assay formats from common compound stocks, with replicate concentration--response curves and blinded analysis. A factorial perturbation of one documented axis---serum fraction for EP3, enzyme/DMSO concentration for DHODH, membrane preparation for aromatase, or substrate concentration for factor Xa---would test the predeclared score-by-condition interaction. Nominal and unbound concentration, kinetic solubility, particle size/turbidity or dynamic light scattering, and detergent reversal where assay-compatible would distinguish altered exposure or colloidal aggregation from target-level biochemistry. Success would require larger reproducible cross-condition shifts in the high-score than low-score group, not merely rediscovery of historical labels. Until such data exist, ``prioritize biological review'' is an experimentally testable application proposal rather than a prospectively validated claim.
+
+\section{Implementation details}
+
+Chemical identity was the stereo-preserving parent after counterion removal; the split family was the corresponding connectivity with stereochemistry removed. Molecular graphs used atom identity, degree, formal charge, hybridization, hydrogen count, chirality, aromaticity, ring membership, and mass, together with directed bond type, stereo, conjugation, and ring features. The circular representation used radius 2, 2,048 bits, and chirality. All training examples were inverse weighted by molecule--target--endpoint pair-row frequency to limit overrepresentation of molecules contributing many pairs.
+
+BioContext-GINE uses width 128, five context-FiLM layers, dropout 0.12, AdamW learning rate $3\times10^{-4}$, weight decay $5\times10^{-4}$, batch size 256, ranking-loss weight 0.50, a maximum of 42 epochs, and early-stopping patience of 8. The edge-GINE comparator uses width 80, three layers, dropout 0.12, learning rate $4\times10^{-4}$, weight decay $2\times10^{-4}$, batch size 384, ranking-loss weight 0.40, a maximum of 22 epochs, and patience 5. All reported artifacts record split assignments, feature schemas, hashes, checkpoints, and prediction lineage. Code, manifests, curated tables, and the complete case selection audit are retained with the project release.
+
+
+
+\section*{Acknowledgements}
+
+Please use ``The authors thank \ldots'' rather than ``The authors would like to
+thank \ldots''.
+
+\section*{Supporting information}
+
+A listing of the contents of each file supplied as Supporting Information
+should be included. For instructions on what should be included in the
+Supporting Information as well as how to prepare this material for
+publications, refer to the journal's Instructions for Authors.
+
+The following files are available free of charge.
+\begin{itemize}
+  \item Filename-1: brief description
+  \item Filename-2: brief description
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% If you are using classical BibTeX rather than biblatex,
+%% remove the \printbibliography and uncomment the \bibliograpy one
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \printbibliography
+% \bibliography{references}
+
+% \newpage
+
+% \rule{0.05in}{1.75in}%
+% \begin{minipage}[b][1.75in]{3.25in}
+%   \sffamily
+%   \frenchspacing
+
+%   Some journals require a graphical entry for the Table of Contents. This
+%   should be laid out ``print ready'' so that the sizing of the text is correct.
+
+%   The space available depends on the journal: J. Am. Chem. Soc. allows 3.25 in
+%   by 1.75 in and requires sanserif text. Some journals want different sizes:
+%   you can easily adjust here.
+  
+%   The two rules either side of the content are there to help judge the height
+%   of your material: they may be deleted once not required.
+  
+% \end{minipage}%
+% \rule{0.05in}{1.75in}
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+
+\end{document}

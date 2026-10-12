@@ -1,0 +1,242 @@
+[
+  {
+    "seed": 17,
+    "task": 1,
+    "n": 6320,
+    "maximum_absolute_difference": {
+      "prediction": 2.9712676985482744e-08,
+      "regression": 1.1917114273174434e-07,
+      "target": 1.5914917028680975e-07
+    },
+    "recomputed_metrics": {
+      "n": 6320,
+      "positives": 872,
+      "prevalence": 0.1379746835443038,
+      "AP": 0.44953076527379965,
+      "AUROC": 0.8343732949723154,
+      "Brier": 0.09568121535411976,
+      "pair_macro_n": 32,
+      "pair_macro_AUROC": 0.7005724548672201,
+      "pair_macro_AP": 0.5330161894820453,
+      "MAE": 0.4288199543952942,
+      "macro_MAE": 0.32803991436958313
+    }
+  },
+  {
+    "seed": 17,
+    "task": 2,
+    "n": 2772,
+    "maximum_absolute_difference": {
+      "prediction": 2.9692077685439244e-08,
+      "regression": 5.708312977859009e-08,
+      "target": 4.440892098500626e-16
+    },
+    "recomputed_metrics": {
+      "n": 2772,
+      "pairs": 216,
+      "prevalence": 0.14646464646464646,
+      "AP": 0.6563358516761071,
+      "AUROC": 0.9034495250865088,
+      "Brier": 0.079025910208724,
+      "pair_macro_AUROC": 0.700572357095846,
+      "pair_macro_AP": 0.6089916602482457,
+      "pair_macro_n": 22,
+      "within_pair_top10_enrichment": 2.170229845849242,
+      "MAE": 0.14424395369917617,
+      "macro_MAE": 0.15480758370901887,
+      "spearman": 0.6329354959433349
+    }
+  },
+  {
+    "seed": 23,
+    "task": 1,
+    "n": 13688,
+    "maximum_absolute_difference": {
+      "prediction": 2.9736328177598637e-08,
+      "regression": 1.1285400391969347e-07,
+      "target": 1.1843872060879335e-07
+    },
+    "recomputed_metrics": {
+      "n": 13688,
+      "positives": 1327,
+      "prevalence": 0.09694623027469317,
+      "AP": 0.40166482405195386,
+      "AUROC": 0.8377639837281451,
+      "Brier": 0.07433689018676713,
+      "pair_macro_n": 54,
+      "pair_macro_AUROC": 0.7991958733440467,
+      "pair_macro_AP": 0.3886685809000518,
+      "MAE": 0.22334764897823334,
+      "macro_MAE": 0.3000940680503845
+    }
+  },
+  {
+    "seed": 23,
+    "task": 2,
+    "n": 4368,
+    "maximum_absolute_difference": {
+      "prediction": 2.9401397649841954e-08,
+      "regression": 1.1877441385976795e-07,
+      "target": 4.440892098500626e-16
+    },
+    "recomputed_metrics": {
+      "n": 4368,
+      "pairs": 147,
+      "prevalence": 0.09592490842490843,
+      "AP": 0.6094401562123467,
+      "AUROC": 0.8943794719185125,
+      "Brier": 0.057432604242974715,
+      "pair_macro_AUROC": 0.634392552761885,
+      "pair_macro_AP": 0.4178559777817321,
+      "pair_macro_n": 31,
+      "within_pair_top10_enrichment": 1.5736771380983905,
+      "MAE": 0.13142035436722022,
+      "macro_MAE": 0.1784197128779093,
+      "spearman": 0.4793741346818354
+    }
+  },
+  {
+    "seed": 41,
+    "task": 1,
+    "n": 11248,
+    "maximum_absolute_difference": {
+      "prediction": 2.97386169023639e-08,
+      "regression": 1.1793518073233145e-07,
+      "target": 1.1868286131644368e-07
+    },
+    "recomputed_metrics": {
+      "n": 11248,
+      "positives": 1033,
+      "prevalence": 0.09183854907539118,
+      "AP": 0.46254876384385657,
+      "AUROC": 0.8408467702385165,
+      "Brier": 0.06954268156449182,
+      "pair_macro_n": 55,
+      "pair_macro_AUROC": 0.7872026214988518,
+      "pair_macro_AP": 0.35754167465578135,
+      "MAE": 0.20667611062526703,
+      "macro_MAE": 0.2969993054866791
+    }
+  },
+  {
+    "seed": 41,
+    "task": 2,
+    "n": 4420,
+    "maximum_absolute_difference": {
+      "prediction": 2.8915405292373464e-08,
+      "regression": 6.48193361207916e-08,
+      "target": 4.440892098500626e-16
+    },
+    "recomputed_metrics": {
+      "n": 4420,
+      "pairs": 215,
+      "prevalence": 0.09909502262443438,
+      "AP": 0.6286786766215406,
+      "AUROC": 0.8978531244481445,
+      "Brier": 0.05745987069241187,
+      "pair_macro_AUROC": 0.6942782585511879,
+      "pair_macro_AP": 0.5371118300465858,
+      "pair_macro_n": 35,
+      "within_pair_top10_enrichment": 2.187731715485617,
+      "MAE": 0.12009609845601309,
+      "macro_MAE": 0.15350594095414458,
+      "spearman": 0.5849481286745687
+    }
+  },
+  {
+    "seed": 71,
+    "task": 1,
+    "n": 1864,
+    "maximum_absolute_difference": {
+      "prediction": 2.9612731933248426e-08,
+      "regression": 1.0607910150284283e-07,
+      "target": 1.5914917028680975e-07
+    },
+    "recomputed_metrics": {
+      "n": 1864,
+      "positives": 575,
+      "prevalence": 0.3084763948497854,
+      "AP": 0.7564805312484351,
+      "AUROC": 0.8409633352447128,
+      "Brier": 0.14502185893645703,
+      "pair_macro_n": 26,
+      "pair_macro_AUROC": 0.6741247835830149,
+      "pair_macro_AP": 0.5385220341776833,
+      "MAE": 0.5132264494895935,
+      "macro_MAE": 0.36066311597824097
+    }
+  },
+  {
+    "seed": 71,
+    "task": 2,
+    "n": 2039,
+    "maximum_absolute_difference": {
+      "prediction": 2.975463864185457e-08,
+      "regression": 4.976348866314595e-08,
+      "target": 4.440892098500626e-16
+    },
+    "recomputed_metrics": {
+      "n": 2039,
+      "pairs": 211,
+      "prevalence": 0.14026483570377635,
+      "AP": 0.6132688994428218,
+      "AUROC": 0.9029156810103759,
+      "Brier": 0.08004378131065078,
+      "pair_macro_AUROC": 0.7344942809766474,
+      "pair_macro_AP": 0.6756877665313167,
+      "pair_macro_n": 20,
+      "within_pair_top10_enrichment": 2.1113934283309286,
+      "MAE": 0.15892401546331567,
+      "macro_MAE": 0.15029051150898864,
+      "spearman": 0.6001361216053693
+    }
+  },
+  {
+    "seed": 101,
+    "task": 1,
+    "n": 1705,
+    "maximum_absolute_difference": {
+      "prediction": 2.965164180857016e-08,
+      "regression": 1.0357666013760536e-07,
+      "target": 1.0678100581529293e-07
+    },
+    "recomputed_metrics": {
+      "n": 1705,
+      "positives": 357,
+      "prevalence": 0.2093841642228739,
+      "AP": 0.6271531625147437,
+      "AUROC": 0.8651451678594286,
+      "Brier": 0.11458771215172282,
+      "pair_macro_n": 17,
+      "pair_macro_AUROC": 0.7685579924477814,
+      "pair_macro_AP": 0.6434926432672929,
+      "MAE": 0.3281465172767639,
+      "macro_MAE": 0.31998616456985474
+    }
+  },
+  {
+    "seed": 101,
+    "task": 2,
+    "n": 2114,
+    "maximum_absolute_difference": {
+      "prediction": 2.901153561829517e-08,
+      "regression": 1.1624145512811879e-07,
+      "target": 4.440892098500626e-16
+    },
+    "recomputed_metrics": {
+      "n": 2114,
+      "pairs": 213,
+      "prevalence": 0.19962157048249762,
+      "AP": 0.7117257028911019,
+      "AUROC": 0.8928761498212945,
+      "Brier": 0.10454224047345827,
+      "pair_macro_AUROC": 0.7206651623612236,
+      "pair_macro_AP": 0.6931074815946202,
+      "pair_macro_n": 18,
+      "within_pair_top10_enrichment": 2.050486912957204,
+      "MAE": 0.17721691630208355,
+      "macro_MAE": 0.16388317235832378,
+      "spearman": 0.5540893820076361
+    }
+  }
+]

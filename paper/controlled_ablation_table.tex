@@ -1,0 +1,21 @@
+\begin{table}[htbp]
+\centering
+\caption{Response-model training variants at validation-selected checkpoints. Mean $\pm$ split SD; all variants complete 1,000 updates. The SAGP is reported separately.}
+\label{tab:controlled}
+\small
+\setlength{\tabcolsep}{3.1pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrr}
+\toprule
+ & \multicolumn{3}{c}{Task 1} & \multicolumn{3}{c}{Task 2} \\
+Model & AP & Pair AUROC & MAE & AP & Pair AUROC & MAE \\
+\midrule
+A: Task 1 only + root & 0.538 $\pm$ 0.151 & 0.742 $\pm$ 0.055 & 0.322 $\pm$ 0.026 & 0.646 $\pm$ 0.046 & 0.698 $\pm$ 0.036 & 0.177 $\pm$ 0.020 \\
+B: Task 2 only + root & 0.540 $\pm$ 0.152 & 0.744 $\pm$ 0.052 & 0.322 $\pm$ 0.027 & 0.641 $\pm$ 0.040 & 0.695 $\pm$ 0.033 & 0.172 $\pm$ 0.020 \\
+D: No chemical residual & 0.531 $\pm$ 0.149 & 0.727 $\pm$ 0.051 & 0.329 $\pm$ 0.022 & 0.602 $\pm$ 0.058 & 0.632 $\pm$ 0.031 & 0.175 $\pm$ 0.018 \\
+E: Signed mean slopes & 0.541 $\pm$ 0.149 & 0.744 $\pm$ 0.055 & 0.322 $\pm$ 0.027 & 0.640 $\pm$ 0.035 & 0.698 $\pm$ 0.034 & 0.175 $\pm$ 0.025 \\
+F: Independent contrast variance & 0.539 $\pm$ 0.148 & 0.744 $\pm$ 0.056 & 0.322 $\pm$ 0.027 & 0.647 $\pm$ 0.047 & 0.695 $\pm$ 0.034 & 0.168 $\pm$ 0.016 \\
+G: Shared encoder, separate heads & 0.535 $\pm$ 0.152 & 0.741 $\pm$ 0.054 & 0.324 $\pm$ 0.027 & 0.647 $\pm$ 0.049 & 0.695 $\pm$ 0.039 & 0.164 $\pm$ 0.016 \\
+\bottomrule
+\end{tabular}}
+\end{table}

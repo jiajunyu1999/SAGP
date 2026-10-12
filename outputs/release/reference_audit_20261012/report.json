@@ -1,0 +1,23 @@
+{
+  "issues": [],
+  "SI_table_numbers": {
+    "tab:controlled": "S1",
+    "tab:finalstep": "S2"
+  },
+  "main_labels": {
+    "tab:data-resource": "1",
+    "tab:task-cohorts": "2",
+    "fig:pipeline": "1",
+    "fig:data": "2",
+    "tab:baselines-task1": "3",
+    "tab:baselines-task2": "4",
+    "fig:gains": "3",
+    "tab:caseprovenance": "5",
+    "fig:cases": "4",
+    "tab:reference-interventions": "6",
+    "fig:reference-evidence": "5",
+    "fig:applicability": "6"
+  },
+  "citation_keys_available": 63,
+  "fix": "Separate validation-selected variants (S3) from final-step robustness (S4); references generated from SI labels."
+}

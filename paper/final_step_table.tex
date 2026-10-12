@@ -1,0 +1,22 @@
+\begin{table}[htbp]
+\centering
+\caption{Final-step robustness: test results after the complete 1,000-update budget, without test-based checkpoint switching. Mean $\pm$ SD across the same five splits.}
+\label{tab:finalstep}
+\small
+\setlength{\tabcolsep}{3.1pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrr}
+\toprule
+ & \multicolumn{3}{c}{Task 1} & \multicolumn{3}{c}{Task 2} \\
+Model & AP & Pair AUROC & MAE & AP & Pair AUROC & MAE \\
+\midrule
+A: Task 1 only + root & 0.537 $\pm$ 0.150 & 0.743 $\pm$ 0.052 & 0.321 $\pm$ 0.027 & 0.647 $\pm$ 0.048 & 0.699 $\pm$ 0.037 & 0.174 $\pm$ 0.018 \\
+B: Task 2 only + root & 0.541 $\pm$ 0.146 & 0.743 $\pm$ 0.054 & 0.320 $\pm$ 0.027 & 0.647 $\pm$ 0.046 & 0.692 $\pm$ 0.032 & 0.166 $\pm$ 0.016 \\
+D: No chemical residual & 0.528 $\pm$ 0.149 & 0.727 $\pm$ 0.051 & 0.329 $\pm$ 0.022 & 0.605 $\pm$ 0.059 & 0.631 $\pm$ 0.031 & 0.173 $\pm$ 0.017 \\
+E: Signed mean slopes & 0.537 $\pm$ 0.148 & 0.743 $\pm$ 0.052 & 0.321 $\pm$ 0.027 & 0.646 $\pm$ 0.049 & 0.692 $\pm$ 0.033 & 0.169 $\pm$ 0.015 \\
+F: Independent contrast variance & 0.538 $\pm$ 0.148 & 0.744 $\pm$ 0.053 & 0.321 $\pm$ 0.027 & 0.647 $\pm$ 0.049 & 0.693 $\pm$ 0.033 & 0.167 $\pm$ 0.016 \\
+G: Shared encoder, separate heads & 0.534 $\pm$ 0.152 & 0.743 $\pm$ 0.052 & 0.322 $\pm$ 0.027 & 0.646 $\pm$ 0.051 & 0.693 $\pm$ 0.038 & 0.163 $\pm$ 0.016 \\
+SAGP (ours) & 0.537 $\pm$ 0.151 & 0.747 $\pm$ 0.052 & 0.321 $\pm$ 0.026 & 0.644 $\pm$ 0.046 & 0.698 $\pm$ 0.044 & 0.159 $\pm$ 0.011 \\
+\bottomrule
+\end{tabular}}
+\end{table}

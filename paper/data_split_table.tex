@@ -1,0 +1,20 @@
+\begin{table}[!htbp]
+\centering
+\caption{Task-specific training, validation and test cohorts across five fixed seeds (17, 23, 41, 71, 101). Ranges describe repeated partitions, not independent replications. Test pairs count all represented assay pairs; evaluable pairs require at least ten queries and three examples per class, matching the strict ranking comparison in Fig.~\ref{fig:gains}a.}
+\label{tab:task-cohorts}
+\small
+\setlength{\tabcolsep}{3.4pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrr}
+\toprule
+Task and observation unit & Training rows & Validation rows & Test rows & \shortstack{Test\\pairs} & \shortstack{Evaluable\\pairs} \\
+\midrule
+\shortstack[l]{Task 1: SAR transfer\\(analogue comparisons)} & 31,781--48,941 & 1,258--2,071 & 1,705--13,688 & 182--297 & 17--55 \\[4pt]
+\shortstack[l]{Task 2: Molecular sensitivity\\(molecule observations)} & 10,396--15,717 & 1,485--2,462 & 2,039--4,420 & 147--216 & 18--35 \\[4pt]
+\bottomrule
+\end{tabular}}
+\vspace{3pt}
+\begin{minipage}{0.98\textwidth}\footnotesize
+Training rows count task-specific eligible examples, not gradient updates. Additional signed-shift supervision draws on 53,048--57,239 paired observations per seed before reference-support eligibility; this is not an additional independent cohort. Tasks 1 and 2 hold out query scaffolds within known pairs. Query measurements and provenance groups remain excluded from reference pools.
+\end{minipage}
+\end{table}

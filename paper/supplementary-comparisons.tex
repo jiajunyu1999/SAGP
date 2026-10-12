@@ -1,0 +1,136 @@
+\documentclass[letterpaper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{natbib}
+
+\usepackage{geometry}
+
+\usepackage{microtype,graphicx,booktabs,amsmath,caption}
+\usepackage[hidelinks]{hyperref}
+
+\geometry{margin = 1in}
+\usepackage{setspace}
+
+% \usepackage[style = chem-acs]{biblatex}
+% \addbibresource{references.bib}
+
+% \usepackage[
+%   backend=biber,
+%   style=chem-acs
+% ]{biblatex}
+% \addbibresource{references.bib}
+
+% If you are using classical BibTeX, remove the above lines and 
+% uncomment:
+%\usepackage{achemso}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Graphic inclusion and scheme and chart support
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{graphicx}
+\usepackage{float}
+\newfloat{scheme}{htbp}{los}
+\floatname{scheme}{Scheme}
+\floatname{chart}{Chart}
+\newfloat{graph}{htbp}{loh}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Common support packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{chemformula} % Formulas using \ch{}
+% or
+\usepackage[version = 4]{mhchem} % Formulas using \ce{}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Many journals require that sections are unnumbered: this 
+%% is activated here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setcounter{secnumdepth}{-1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Place any additional macros here.  Please use \newcommand* where
+%% possible, and avoid layout-changing macros (which are not used
+%% when typesetting).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand*\mycommand[1]{\texttt{\emph{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Author and title data:
+%% the authblk package is currently the simplest way to provide this
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{authblk}
+\author{Anonymous Authors}
+\title{Supplementary Information: Learning Molecular Response Landscapes Across Bioassays}
+\date{}
+
+% \usepackage[
+%   backend=biber,
+%   style=chem-acs
+% ]{biblatex}
+
+% \addbibresource{references.bib}
+
+
+\begin{document}\maketitle
+\graphicspath{{../outputs/figures/}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\section{Supplementary Methods: response and decision implementation}
+
+This section specifies SAGP implementation summarized in Materials and Methods. Source potency is normalized as $p=(pIC_{50,A}-6)/2$; $d$ is the signed A-to-B shift. References are restricted to permitted training compounds and query assay-B values remain hidden.
+
+Slopes are exponentiated clipped log-slopes, adjusted by reference moments; conditional adjustment is suppressed at one reference and fully enabled from three references. The implied prior assay-B potency trend is monotone; the signed shift itself need not increase with source potency. Monotonicity constrains this shared mean, not each molecule's posterior ordering. The chemical residual permits reversals.
+
+\subsection{Detached reference-conditioned decision adapters}
+
+Each query receives an eight-coordinate context summary: reference mean and standard deviation of $|d_s-c|$; reference signed-shift standard deviation; query source-potency displacement from $\bar p$; maximum reference Tanimoto similarity; similarity-weighted signed-shift standard deviation; similarity-weighted source-potency distance; and $\log(v)/3$. Weights are proportional to $T(x,x_s)^4+10^{-6}$ and normalized over references. These are input summaries, not an independently trained kNN predictor. Coordinates are clipped to $[-5,5]$. For Task 1, $c$ is the selected-reference median and the two query summaries are averaged. For Task 2, $c$ is the full training-only pair median. No query shift enters these features.
+
+Three independent adapters each contain an $8\rightarrow12\rightarrow o$ network with SiLU activation, where $o=2$ for SAR calibration, $o=2$ for sensitivity magnitude and $o=1$ for sensitivity risk. Their final layers start at zero. The base event logit is $\ell(h,v)=b+Th/\sqrt{\lambda v+f^2}$, with positive learned $T,\lambda,f$. For SAR adapter output $u$, the risk is
+\begin{equation}
+ P_1=\operatorname{sigmoid}\{e^{0.5\tanh u_2}\ell(h_1,v_g)+\tanh u_1\}.
+\end{equation}
+For Task 2, the GP signed residual is $e_i=\mu_i-\widetilde d_{pair}$. Let $M(e,s)$ be the median of $|N(e,s^2)|$, obtained by five Newton iterations on its folded-normal CDF. A three-parameter global action first produces $q_0=\max\{0,aM(e_i,\sqrt{\lambda_a\Sigma_{ii}})+b_a\}$; the contextual magnitude adapter output $z$ gives
+\begin{equation}
+ q_i=\max\{0,e^{0.5\tanh z_1}q_0+0.25\tanh z_2\},\qquad
+ P_2=\operatorname{sigmoid}\{\ell(q_i-0.5,\Sigma_{ii})+\tanh t_i\},
+\end{equation}
+where $t_i$ is the independent sensitivity-risk adapter output. GP moments and context features are detached before all decision losses. The magnitude is further detached before sensitivity classification, so binary gradients cannot change its adapter. This separates continuous response learning, magnitude decisions and event decisions. $P_1$ and $P_2$ are discriminative risk scores. The variance $\Sigma_{ii}$ describes signed-shift uncertainty; $q_i$ is the calibrated magnitude.
+
+\subsection{Objectives, optimization and validation selection}
+
+Separate gradient clipping for GP and adapter groups prevents decision gradients from changing GP clipping scales. The initialization checkpoint competes with later checkpoints under the validation rule described in the main text; training completes the full update budget without early stopping.
+
+SAGP stores 1,883 parameters, including 400 contextual decision parameters. The initialization checkpoint remains eligible; it was selected for seed 17, while the other fits selected steps 800, 700, 900 and 900 for seeds 23, 41, 71 and 101. Final-step results are reported separately. 
+
+\section{Supplementary Methods: frozen interventions and evaluation}
+
+\subsection{Frozen reference interventions and applicability diagnostics}
+Additional analyses retain the same five scaffold splits, selected model weights and test queries. Molecular uncertainty and applicability-domain studies motivate assessing prediction confidence separately from point accuracy \citep{scalia2020uncertainty,liu2019domain,norinder2014conformal}; regression-calibration methods likewise evaluate whether uncertainty matches observed outcomes \citep{kuleshov2018calibration}. Historical supports use the exact original training-only reference manifest capped at 100 observations per assay pair. A deterministic ordering within each split defines nested sets capped at 3, 10, 30 and 100; pairs below a cap retain all available references. Full-cap inference restores the original matrix ordering and reproduces the original predictions to tolerance $2\times10^{-4}$. A separate full-cap control permutes signed shifts among historical compounds within each pair, preserving the marginal shift distribution and source potencies while disrupting compound--response associations. Task 2 retains its original full-training-pool pair offset and labels at every cap; this tests posterior/readout reference dependence, not end-to-end learning from only $k$ measurements. Task 1's historical replicate-width summary varies with support. One deterministic support order and one shuffle per split are evaluated.
+
+Differences reuse the same 2,000 connected assay/document-component bootstrap draws, with shared weights across dependent seeds. Chemical applicability uses nearest training-reference Tanimoto similarity; SAR comparisons use the smaller of the two molecules' maxima. Global bins retain the original strict within-pair AUROC eligibility rule and leave unevaluable bins missing. Probability reliability is assessed using Brier score and log loss as proper scoring rules \citep{gneiting2007scores}, together with ten equal-width-bin ECE \citep{guo2017calibration}, without test-time recalibration. 
+
+Target-concentration diagnostics remove test observations for the ten most frequent targets in each split's capped training-reference pool, without refitting. Selective prediction retains the least uncertain queries by decision entropy or signed-response/contrast posterior variance, with a deterministic random ordering as control. Global retention is complemented by selecting $\lceil f n_{pair}\rceil$ queries from every assay pair, at least one per pair, for $f\in\{0.2,0.4,0.6,0.8,1.0\}$. All comparator models are scored on identical masks. Pair composition is fixed in the latter analysis, while query class prevalence can still change. Continuous sensitivity rankings are also evaluated at fixed 0.3, 0.5, 1.0 and 1.5 pIC$_{50}$ thresholds.
+
+Bootstrap estimation \citep{efron1979bootstrap} is adapted to the shared-source dependence: known-pair revision and controlled-ablation differences use 2,000 resamples of connected assay/document components, reusing identical component weight vectors across models and all five dependent seeds. AP is pooled within a seed and then seed-averaged; pair AUROC and MAE are pair-macro then seed-macro. An unevaluable seed invalidates that metric draw rather than changing seed weights.
+
+
+
+\section{Response-component implementation}
+
+The compact main-text analysis compares fixed-kernel response estimation, a neural response mean, global and reference-conditioned structured means, and SAGP. These share the scaffold evaluation and permitted historical measurements; their response training objectives are not identical. The plot summarizes existing per-query evaluations without fitting new models.
+
+\section{Response-model training variants}
+
+The variants share the five splits, identical test cohorts, root-shift training pool, reference sampling, warm starts, 1,000-step budget and validation rule. They include Task-1-only and Task-2-only response supervision, removal of the molecular residual, signed mean slopes, independent contrast variance, and a shared encoder with separate output heads. Episode tensors are checked by SHA-256 within each seed. The first five variants store 1,483 parameters; the shared-encoder control adds 58. The task-level comparison includes different supervision and output constructions.
+
+\input{controlled_ablation_table}
+
+SAGP final-step sensitivity AP is 0.6436 and MAE is 0.1585. Selected and final-step checkpoints are reported separately to show training-budget sensitivity.
+
+\section{Final-step robustness}
+\input{final_step_table}
+\bibliographystyle{plainnat}
+\bibliography{references}
+\end{document}

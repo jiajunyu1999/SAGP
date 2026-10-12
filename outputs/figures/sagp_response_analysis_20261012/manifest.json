@@ -1,0 +1,14 @@
+{
+  "source": "paper/baseline_table_sources_final_20261009/metrics_by_seed.csv",
+  "source_sha256": "a87b8982b518936d09aff00e2bcb52ced7930c6eb416f2d85346007142e4ef73",
+  "models": [
+    "fixed_tanimoto_gp",
+    "neural_mean_gp",
+    "global_monotone",
+    "conditional_monotone",
+    "context_neural"
+  ],
+  "statistics": "Task 1 and Task 2 shown separately; five dependent scaffold evaluations per box; median, Q1-Q3, 1.5 IQR whiskers, all actual split points",
+  "figure": "Figure 5g-i",
+  "note": "Response formulations have different objectives; this is not an equal-information architecture ablation."
+}

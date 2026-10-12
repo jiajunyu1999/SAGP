@@ -1,0 +1,57 @@
+{
+  "tasks": [
+    1,
+    2
+  ],
+  "main_figures": 6,
+  "SAGP_checkpoints": 10,
+  "SAGP_parameters": 1883,
+  "classical_estimator_checkpoints": 20,
+  "parquet_row_counts": {
+    "outputs/datasets/sar_transfer_20261007/split_scaffold_disjoint_seed_71.parquet": 51255,
+    "outputs/datasets/sar_transfer_20261007/anchor_scaffold_train.parquet": 40285,
+    "outputs/datasets/sar_transfer_20261007/split_scaffold_disjoint_seed_41.parquet": 51255,
+    "outputs/datasets/sar_transfer_20261007/molecule_assay_observations.parquet": 79810,
+    "outputs/datasets/sar_transfer_20261007/anchor_scaffold_test.parquet": 6320,
+    "outputs/datasets/sar_transfer_20261007/anchor_transfer_all.parquet": 73950,
+    "outputs/datasets/sar_transfer_20261007/assay_contexts.parquet": 9005,
+    "outputs/datasets/sar_transfer_20261007/group_assignments.parquet": 83330,
+    "outputs/datasets/sar_transfer_20261007/split_scaffold_disjoint_seed_23.parquet": 51255,
+    "outputs/datasets/sar_transfer_20261007/split_scaffold_disjoint_seed_101.parquet": 51255,
+    "outputs/datasets/sar_transfer_20261007/anchor_split_scaffold_seed_17.parquet": 73950,
+    "outputs/datasets/sar_transfer_20261007/molecules.parquet": 33092,
+    "outputs/datasets/sar_transfer_20261007/anchor_split_scaffold_seed_23.parquet": 73950,
+    "outputs/datasets/sar_transfer_20261007/anchor_split_scaffold_seed_41.parquet": 73950,
+    "outputs/datasets/sar_transfer_20261007/anchor_split_scaffold_seed_71.parquet": 73950,
+    "outputs/datasets/sar_transfer_20261007/primary_comparisons.parquet": 51255,
+    "outputs/datasets/sar_transfer_20261007/split_scaffold_disjoint_seed_17.parquet": 51255,
+    "outputs/datasets/sar_transfer_20261007/anchor_split_scaffold_seed_101.parquet": 73950,
+    "outputs/datasets/sar_transfer_20261007/anchor_scaffold_validation.parquet": 1706
+  },
+  "reference_audit": {
+    "issues": [],
+    "SI_table_numbers": {
+      "tab:controlled": "S1",
+      "tab:finalstep": "S2"
+    },
+    "main_labels": {
+      "tab:data-resource": "1",
+      "tab:task-cohorts": "2",
+      "fig:pipeline": "1",
+      "fig:data": "2",
+      "tab:baselines-task1": "3",
+      "tab:baselines-task2": "4",
+      "fig:gains": "3",
+      "tab:caseprovenance": "5",
+      "fig:cases": "4",
+      "tab:reference-interventions": "6",
+      "fig:reference-evidence": "5",
+      "fig:applicability": "6"
+    },
+    "citation_keys_available": 63,
+    "fix": "Separate validation-selected variants (S3) from final-step robustness (S4); references generated from SI labels."
+  },
+  "figure_bytes_match_active_paper": true,
+  "missing_local_code_imports": [],
+  "total_model_and_preprocessor_files": 181
+}
