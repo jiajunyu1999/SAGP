@@ -1,0 +1,10 @@
+{
+  "seed": 17,
+  "model": "task2_only",
+  "steps": 1000,
+  "best_step": 900,
+  "parameters": 1483,
+  "batch_sha256": "9027a4c140d863dbc3a2cfe402a055050ba163d278a093262b0f65d4d304679d",
+  "seconds": 82.67438150011003,
+  "code_sha256": "5b23e7772046a3a641275e5599ba410083309259048f114fd33548ff1e624291"
+}

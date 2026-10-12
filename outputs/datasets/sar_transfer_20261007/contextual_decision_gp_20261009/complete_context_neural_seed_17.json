@@ -1,0 +1,13 @@
+{
+  "seed": 17,
+  "model": "context_neural",
+  "steps": 1000,
+  "best_step": 0,
+  "validation_score": 0.6725637024672166,
+  "batch_sha256": "9027a4c140d863dbc3a2cfe402a055050ba163d278a093262b0f65d4d304679d",
+  "parameters": 1494,
+  "conflicts": 0,
+  "seconds": 107.25418311078101,
+  "pretrain_sha256": "5e295935d8c72bd7cac9ccc43bafe6c6acc145305b6b50b854ceff9b87333dd9",
+  "code_sha256": "caf1ca9e76e7199aeb15bec6dca30dae0979f46f625aafbdff6a9633005f1b8a"
+}

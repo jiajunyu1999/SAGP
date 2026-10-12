@@ -1,0 +1,44 @@
+{
+  "selected_model": "context_neural",
+  "criterion": "mean four validation AP/within-pair AUROC minus0.1 sum two macroMAE, averaged across five seeds; one global model for both tasks",
+  "validation_scores": [
+    {
+      "model": "context_linear",
+      "score": 0.6655819943026908,
+      "task1_AP": 0.6974179108319412,
+      "task1_pair_macro_AUROC": 0.7146554736024767,
+      "task1_macro_MAE": 0.3409092783927917,
+      "task2_AP": 0.7031740857233484,
+      "task2_pair_macro_AUROC": 0.7476011003225589,
+      "task2_macro_MAE": 0.16039220478111224
+    },
+    {
+      "model": "context_neural",
+      "score": 0.66607787381974,
+      "task1_AP": 0.6976689581422795,
+      "task1_pair_macro_AUROC": 0.7140156204220338,
+      "task1_macro_MAE": 0.34073852300643914,
+      "task2_AP": 0.7067897697682951,
+      "task2_pair_macro_AUROC": 0.7472225080183547,
+      "task2_macro_MAE": 0.1627248796735678
+    },
+    {
+      "model": "detached_action",
+      "score": 0.6641478112187218,
+      "task1_AP": 0.6948206107215948,
+      "task1_pair_macro_AUROC": 0.7152150962281856,
+      "task1_macro_MAE": 0.33993424177169795,
+      "task2_AP": 0.7072784076301384,
+      "task2_pair_macro_AUROC": 0.7406067674793542,
+      "task2_macro_MAE": 0.1633898511892656
+    }
+  ],
+  "frozen_at_UTC": "2026-10-09T08:05:54.551407+00:00",
+  "test_seen_during_variant_selection": false,
+  "benchmark_limit": "Earlier results from this benchmark informed the design. This is exploratory re-evaluation, not untouched external validation.",
+  "source_sha256": {
+    "/inspire/hdd/global_user/yujiajun-240108120114/project/CLIFF/assay-disagreement-plan/analysis/evaluate_contextual_decision_gp_20261009.py": "e5afa1c1f28886b9595f9cbe8d7c5dd441e0ed0bb17e7c7aac8ad9e180e8bf3d",
+    "/inspire/hdd/global_user/yujiajun-240108120114/project/CLIFF/assay-disagreement-plan/analysis/train_contextual_decision_gp_20261009.py": "caf1ca9e76e7199aeb15bec6dca30dae0979f46f625aafbdff6a9633005f1b8a",
+    "/inspire/hdd/global_user/yujiajun-240108120114/project/CLIFF/assay-disagreement-plan/analysis/contextual_decision_gp_20261009.py": "d59198670026fca1fe7ff7baa7184e833e34091d08e8fb4292ff422f8cf18705"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "fitted_training_source_sha256": "caf1ca9e76e7199aeb15bec6dca30dae0979f46f625aafbdff6a9633005f1b8a",
+  "frozen_training_source_sha256": "caf1ca9e76e7199aeb15bec6dca30dae0979f46f625aafbdff6a9633005f1b8a",
+  "current_training_source_sha256": "8a16ee712ec38f30c0b139d3d609cfe36cb870b83db4864406e51d1843f3a852",
+  "post_fit_change": "Correct metadata count only:1494 -> sum parameter numel; loss/model/training protocol unchanged."
+}

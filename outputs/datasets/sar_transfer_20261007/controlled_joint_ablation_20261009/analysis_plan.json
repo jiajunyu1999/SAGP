@@ -1,0 +1,16 @@
+{
+  "primary_comparisons": {
+    "Task1": "joint minus task1_only",
+    "Task2": "joint minus task2_only",
+    "matched_label_information": "joint minus shared_multihead for both tasks"
+  },
+  "primary_metrics": [
+    "AP",
+    "within-pair AUROC"
+  ],
+  "secondary_metric": "pair-macro MAE",
+  "components": "same connected assay/document components as existing paper; shared bootstrap weights across splits and models",
+  "uncertainty": "percentile95CI,2000draws; dependent seeds retained as macro mean, not treated as independent replicates",
+  "sensitivity": "Final1000step checkpoint alongside validation-selected checkpoint",
+  "interpretation": "Retain every result regardless of sign. Do not equate auxiliarly-label benefit with posterior-structure benefit. No test-based model revisions."
+}

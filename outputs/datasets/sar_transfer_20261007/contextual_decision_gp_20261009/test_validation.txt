@@ -1,0 +1,1 @@
+14 direct-run tests passed. Final GP state tensors are exactly identical between contextual linear/neural variants in every seed, confirming independent gradient routing/clipping.

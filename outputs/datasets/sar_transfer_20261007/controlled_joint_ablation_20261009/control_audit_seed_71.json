@@ -1,0 +1,83 @@
+{
+  "seed": 71,
+  "pretrain_sha256": "b63788f631f77a789a630428593f35414a554b8d1df63901e3db36ae0b006ce5",
+  "root_pool_hash": "a0e9c7251c8e3d7d0d8ff2f8917d413dc4bc8fc65d81058fcd26b5757a5089ff",
+  "split_sha256": "6de0b78c0bafdb326f42c1812489d2ac55aa2d83bdace7c7c8d57e86250c0df2",
+  "train_rows": 57239,
+  "test_counts": {
+    "1": 1864,
+    "2": 2039
+  },
+  "models": {
+    "task1_only": {
+      "seed": 71,
+      "model": "task1_only",
+      "steps": 1000,
+      "best_step": 600,
+      "parameters": 1483,
+      "batch_sha256": "9ea291905a4abe92758f93075e1fe8032dc7ba877431cb2bdb6f464902aa1d30",
+      "seconds": 76.13568249717355,
+      "code_sha256": "5b23e7772046a3a641275e5599ba410083309259048f114fd33548ff1e624291"
+    },
+    "task2_only": {
+      "seed": 71,
+      "model": "task2_only",
+      "steps": 1000,
+      "best_step": 400,
+      "parameters": 1483,
+      "batch_sha256": "9ea291905a4abe92758f93075e1fe8032dc7ba877431cb2bdb6f464902aa1d30",
+      "seconds": 79.98443754669279,
+      "code_sha256": "5b23e7772046a3a641275e5599ba410083309259048f114fd33548ff1e624291"
+    },
+    "joint": {
+      "seed": 71,
+      "model": "joint",
+      "steps": 1000,
+      "best_step": 800,
+      "parameters": 1483,
+      "batch_sha256": "9ea291905a4abe92758f93075e1fe8032dc7ba877431cb2bdb6f464902aa1d30",
+      "seconds": 90.3299599615857,
+      "code_sha256": "5b23e7772046a3a641275e5599ba410083309259048f114fd33548ff1e624291"
+    },
+    "no_molecular_residual": {
+      "seed": 71,
+      "model": "no_molecular_residual",
+      "steps": 1000,
+      "best_step": 600,
+      "parameters": 1483,
+      "batch_sha256": "9ea291905a4abe92758f93075e1fe8032dc7ba877431cb2bdb6f464902aa1d30",
+      "seconds": 81.98397870268673,
+      "code_sha256": "5b23e7772046a3a641275e5599ba410083309259048f114fd33548ff1e624291"
+    },
+    "no_monotone_mean": {
+      "seed": 71,
+      "model": "no_monotone_mean",
+      "steps": 1000,
+      "best_step": 800,
+      "parameters": 1483,
+      "batch_sha256": "9ea291905a4abe92758f93075e1fe8032dc7ba877431cb2bdb6f464902aa1d30",
+      "seconds": 89.69131943583488,
+      "code_sha256": "5b23e7772046a3a641275e5599ba410083309259048f114fd33548ff1e624291"
+    },
+    "no_contrast_covariance": {
+      "seed": 71,
+      "model": "no_contrast_covariance",
+      "steps": 1000,
+      "best_step": 600,
+      "parameters": 1483,
+      "batch_sha256": "9ea291905a4abe92758f93075e1fe8032dc7ba877431cb2bdb6f464902aa1d30",
+      "seconds": 89.61877574305981,
+      "code_sha256": "5b23e7772046a3a641275e5599ba410083309259048f114fd33548ff1e624291"
+    },
+    "shared_multihead": {
+      "seed": 71,
+      "model": "shared_multihead",
+      "steps": 1000,
+      "best_step": 900,
+      "parameters": 1541,
+      "batch_sha256": "9ea291905a4abe92758f93075e1fe8032dc7ba877431cb2bdb6f464902aa1d30",
+      "seconds": 92.20886518154293,
+      "code_sha256": "5b23e7772046a3a641275e5599ba410083309259048f114fd33548ff1e624291"
+    }
+  }
+}

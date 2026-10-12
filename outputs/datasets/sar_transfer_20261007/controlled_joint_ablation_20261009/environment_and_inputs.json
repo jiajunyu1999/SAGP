@@ -1,0 +1,29 @@
+{
+  "versions": {
+    "torch": "2.4.0",
+    "numpy": "1.26.4",
+    "pandas": "2.3.2",
+    "scipy": "1.16.1",
+    "scikit-learn": "1.7.2",
+    "rdkit": "2025.3.6",
+    "joblib": "1.5.2",
+    "matplotlib": "3.11.1",
+    "duckdb": "1.5.5"
+  },
+  "input_sha256": {
+    "outputs/datasets/sar_transfer_20261007/molecule_assay_observations.parquet": "a0e9c7251c8e3d7d0d8ff2f8917d413dc4bc8fc65d81058fcd26b5757a5089ff",
+    "outputs/datasets/sar_transfer_20261007/anchor_transfer_all.parquet": "d8d466c1df0bc122674d606e54995cc922d69a0942378bbbfd5b20181967d525",
+    "outputs/datasets/sar_transfer_20261007/anchor_split_scaffold_seed_17.parquet": "775472928c174ddad42de4665124cc53ff528e2880662744d0e2106493c826b7",
+    "outputs/datasets/sar_transfer_20261007/anchor_split_scaffold_seed_23.parquet": "358355e2d225a1395787aee378d157d7a7535fdd8930d8b84fe5bf4d3b2f76a5",
+    "outputs/datasets/sar_transfer_20261007/anchor_split_scaffold_seed_41.parquet": "0e0405463947212c1b2cd42b060640f961f7e338ee469bc6ffcc5700ccfecd07",
+    "outputs/datasets/sar_transfer_20261007/anchor_split_scaffold_seed_71.parquet": "6de0b78c0bafdb326f42c1812489d2ac55aa2d83bdace7c7c8d57e86250c0df2",
+    "outputs/datasets/sar_transfer_20261007/anchor_split_scaffold_seed_101.parquet": "c63f480c32db13d4652370f2c5926b3e730e5acbed38367c7702f985a8feedb7",
+    "outputs/datasets/sar_transfer_20261007/models_known_monotone_response_20261007/conditional_monotone_seed_17.pt": "5e295935d8c72bd7cac9ccc43bafe6c6acc145305b6b50b854ceff9b87333dd9",
+    "outputs/datasets/sar_transfer_20261007/models_known_monotone_response_20261007/conditional_monotone_seed_23.pt": "ed5da3bdabcc58f9a0f0b78c186a134f669cbd4545c17b439605c1ef4a860055",
+    "outputs/datasets/sar_transfer_20261007/models_known_monotone_response_20261007/conditional_monotone_seed_41.pt": "4cb63f0fdc6185e6a2bad1db554dc97ede873dff697919ee5094b95d7b375a49",
+    "outputs/datasets/sar_transfer_20261007/models_known_monotone_response_20261007/conditional_monotone_seed_71.pt": "b63788f631f77a789a630428593f35414a554b8d1df63901e3db36ae0b006ce5",
+    "outputs/datasets/sar_transfer_20261007/models_known_monotone_response_20261007/conditional_monotone_seed_101.pt": "35485a0d72c509d1c0214a3e7f78077fe63c23900e700ad8f8df1f1bae54d1bd",
+    "outputs/datasets/sar_transfer_20261007/molecules.parquet": "d829ffbf2fc336e9793e3dafbab7e812c4e4189bd18ee68549b32ae05f2965e8"
+  },
+  "hardware": "NVIDIA GeForce RTX4090; all train computations float32"
+}

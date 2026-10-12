@@ -1,0 +1,19 @@
+{
+  "variants": [
+    "context_linear",
+    "context_neural"
+  ],
+  "seeds": [
+    17,
+    23,
+    41,
+    71,
+    101
+  ],
+  "steps": 1000,
+  "GP_parameters": 1483,
+  "selection": "one global validation-selected variant, original common criterion, before candidate test evaluation",
+  "features": "reference mean/std absolute centered shift; signed shift std; source potency position; max Tanimoto; similarity-weighted shift std; similarity-weighted source-potency distance; log variance",
+  "training": "same density losses and episode tensors as protected GP; continuous/contextual action and probability adapters use detached GP moments; independent gradient clipping for GP and decision parameters",
+  "benchmark_limit": "exploratory re-evaluation of an already explored benchmark; no prediction ensemble"
+}

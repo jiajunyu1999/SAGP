@@ -1,0 +1,10 @@
+{
+  "seed": 101,
+  "model": "no_molecular_residual",
+  "steps": 1000,
+  "best_step": 900,
+  "parameters": 1483,
+  "batch_sha256": "ea5729e100055703884f5d6195263ff60b6c211f3350df48ca4b58d30f0700ad",
+  "seconds": 88.01141089573503,
+  "code_sha256": "5b23e7772046a3a641275e5599ba410083309259048f114fd33548ff1e624291"
+}

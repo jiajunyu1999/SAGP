@@ -1,0 +1,4 @@
+{
+  "raw_fit_logs": "The copied parameter-count field1494 is stale; raw records are preserved unchanged. Architecture-based counts are1539 for linear and1883 for neural. Training/checkpoints/predictions are unaffected.",
+  "corrected_audit": "compute_and_control_audit.csv"
+}

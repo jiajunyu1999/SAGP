@@ -1,0 +1,10 @@
+{
+  "seed": 23,
+  "model": "shared_multihead",
+  "steps": 1000,
+  "best_step": 1000,
+  "parameters": 1541,
+  "batch_sha256": "b1f82b3c5c45e3d93d069e8cc6bb9a9a19756ee02a51e0f66d6e78ba78bf415c",
+  "seconds": 89.75496716238558,
+  "code_sha256": "5b23e7772046a3a641275e5599ba410083309259048f114fd33548ff1e624291"
+}
