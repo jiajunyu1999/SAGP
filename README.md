@@ -17,7 +17,7 @@ This folder corresponds to the current manuscript: two tasks and six main figure
 
 ## Manuscript version and access
 
-The manuscript-aligned release is tagged [`v1.0.0`](https://github.com/jiajunyu1999/SAGP/tree/v1.0.0). Original data: [ChEMBL 37, DOI 10.6019/CHEMBL.database.37](https://doi.org/10.6019/CHEMBL.database.37). ChEMBL-derived data retain [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). Files are publicly downloadable without registration or approval; the original database is obtained separately from EMBL–EBI. This GitHub release has no separately assigned DOI.
+The manuscript-aligned release is tagged [`v1.0.1`](https://github.com/jiajunyu1999/SAGP/tree/v1.0.1). Original data: [ChEMBL 37, DOI 10.6019/CHEMBL.database.37](https://doi.org/10.6019/CHEMBL.database.37). ChEMBL-derived data retain [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). Files are publicly downloadable without registration or approval; the original database is obtained separately from EMBL–EBI. This GitHub release has no separately assigned DOI.
 
 ## Key implementation settings
 
