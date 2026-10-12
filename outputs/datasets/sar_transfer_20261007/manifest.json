@@ -1,0 +1,107 @@
+{
+  "raw_molecule_assay_pair_rows": 153468,
+  "raw_assay_pairs": 83381,
+  "raw_assay_pair_support": {
+    "2": 12442,
+    "5": 4402,
+    "10": 1479,
+    "20": 679,
+    "30": 368
+  },
+  "excluded_shared_provenance_rows": 2742,
+  "invalid_structure_identities": [],
+  "candidate_four_value_comparisons": 1751539,
+  "comparisons_tanimoto_ge_0_6": 542823,
+  "labels_tanimoto_ge_0_7": {
+    "unresolved": 104277,
+    "retained": 51421,
+    "B_only_resolved": 31477,
+    "A_only_resolved": 21159,
+    "reversed": 2603
+  },
+  "primary_dataset": {
+    "comparisons": 51255,
+    "retained": 48843,
+    "reversed": 2412,
+    "unique_molecules": 12401,
+    "assay_pairs": 1258,
+    "targets": 322,
+    "documents": 897,
+    "unique_molecular_pairs": 27125,
+    "largest_assay_pair_fraction": 0.09466393522583162
+  },
+  "versions": {
+    "rdkit": "2025.03.6",
+    "pandas": "2.3.2",
+    "duckdb": "1.5.5"
+  },
+  "parameters": {
+    "primary_tanimoto": 0.7,
+    "morgan_radius": 2,
+    "morgan_bits": 2048,
+    "chirality": true,
+    "margin_log10_each_assay": 0.5,
+    "minimum_shared_molecules": 10,
+    "known_pair_min_training_molecules": 5,
+    "known_pair_min_training_comparisons": 5,
+    "group_split_ratios": [
+      0.7,
+      0.15,
+      0.15
+    ],
+    "seeds": [
+      17,
+      23,
+      41,
+      71,
+      101
+    ],
+    "replicate_rule": "Worst-case min/max observed replicate gaps must pass the margin; these are not confidence intervals"
+  },
+  "source_sha256": {
+    "pairs": "ff0a198c77eb5e9e784f3bf8f9f99d4a4672c4f25889b394e32d09c5b0911d40",
+    "measurements": "e7bacfc6bf1dc99c72e80f781f8a7da07702b660a68b314ac58be98a8c581664",
+    "molecules": "6fd698900f69390b4c598d444a1195b189e0448dbb93a4cefe1ffe431fd1d30f",
+    "assays": "e8f18fe9a33fb3b70f77c377d460aaa0eac1685a9a430ff9e114df06f9edfb0f",
+    "controlled_condition_pairs": "afe143ca3aea5e0077582e7bbdf2f69e85b9bed79c135ddfe823ecef53134eb4"
+  },
+  "code_sha256": "ed9ce2d7ebbf763d8f056f91ece160610d90a7f629634a65edf9a2905d1a888b",
+  "whole_series_count": 604,
+  "audit_code_sha256": "460cf0c7ff9e8b553ba5da1a5f9623a9667642f88bf9ed97a832a73376ffdd30",
+  "validation_checks_passed": true,
+  "artifacts_sha256": {
+    "README.txt": "db15be4c1f66737366aa2dd9d02b0935efab551bd770dfb1f920f37953e6da2c",
+    "all_analogue_comparisons.parquet": "52ac04143bb2abc4582b706fb04d2b5f471d3cb2c8499756c852ce1662380082",
+    "assay_contexts.parquet": "408759202b02b816eb68f2054611da6e13fb7a1ab870edea6475750d84319a87",
+    "assay_pair_inventory.csv": "f57a671f239bb98c74045017f99a10c33e976d0e5eea2e34f63d5a81f77c0eaf",
+    "cohort_coverage.csv": "aa2f69dec8ba25adcf2d73213335ec575101863f383688a45236a71ce83c46be",
+    "evaluation_support_seed17.csv": "626d5021a67a4eb1de9d7d11f64ad4daf395a794d4a95119290b665015da74f2",
+    "family_disjoint_test.parquet": "e4256cac7a439958ea552d3853d01e75255280149380969616d560b29421609e",
+    "family_disjoint_train.parquet": "f478c52736508d91a93bcd183918b297409bc8fa38a5407e2e67ca389e8687f6",
+    "family_disjoint_validation.parquet": "75918ae2ba4de01753c87f2f888f42044f094d1e77d54e757d9428f764a34cf7",
+    "group_assignments.parquet": "3dfac76d6ccffa3da5a02a9ae8bdb79c2d01b11bb71cca80d1f1d885663db774",
+    "molecule_assay_observations.parquet": "a0e9c7251c8e3d7d0d8ff2f8917d413dc4bc8fc65d81058fcd26b5757a5089ff",
+    "molecules.parquet": "d829ffbf2fc336e9793e3dafbab7e812c4e4189bd18ee68549b32ae05f2965e8",
+    "primary_comparisons.parquet": "54c26dc45ac72f51b51e0010106a4796ed032e4918bc422926a49c12e98ea383",
+    "scaffold_disjoint_test.parquet": "de230fdbc38783b8fbaee6565c2b6fb79db1a776afa450c27b5dd748e785aab7",
+    "scaffold_disjoint_train.parquet": "b509614663762fd3dfe9103e78982a11a56b6482726b395b5b8629dca357ccd5",
+    "scaffold_disjoint_validation.parquet": "9cbc11d2d590edabcf27123e10107c0f5b00684441c67f0c1155baad0f855d11",
+    "split_counts.csv": "ea3cfca89252c1b12108b2abc55f7d6be5102366c57dda8dac8f66c1f2912706",
+    "split_exclusions.csv": "c4bd63557669f60471e612f2ed808b57fdb06c6e0e218f116aa93beba6aebacc",
+    "split_family_disjoint_seed_101.parquet": "af538d5b0406d1323d61f548d32034aeff0127066ac8a6bb3bb9d2c92782654b",
+    "split_family_disjoint_seed_17.parquet": "a8c731699cdfd1d3e2e29599668cbf4a17e4a015ede4f458131955a7ba77eed8",
+    "split_family_disjoint_seed_23.parquet": "242172f42877d88b72ec1120d8d284e7a9d70e7cde446caade66c6a0e23351aa",
+    "split_family_disjoint_seed_41.parquet": "4c396ba23743d26286c346e2c943da7c75f0854141119754218ff0056dd050ac",
+    "split_family_disjoint_seed_71.parquet": "6746b1e3af3d30fac85db6156388c89c5048968544f81cdac2364f7a5e1dde2f",
+    "split_overlap_audit.csv": "bbe2657604ae6ccc2a29ab786943599d3666ee8c51ba61854f7c7fa1fa719ad8",
+    "split_scaffold_disjoint_seed_101.parquet": "8638b08e038a78429239342eace467ebced8457a0cd7f0b198f04136ff0d2175",
+    "split_scaffold_disjoint_seed_17.parquet": "330852cba3eb416325b09bb220325a38771f36757f5e9abaa94c057586ced4be",
+    "split_scaffold_disjoint_seed_23.parquet": "6bb8b9306ecf9bb3d51c758afb393ca712522dd276f923b9c06ae26c2b94d144",
+    "split_scaffold_disjoint_seed_41.parquet": "82058862e3a3890707ff02faac1bef4ca0e8007c3380fa2175f13483a561fe48",
+    "split_scaffold_disjoint_seed_71.parquet": "84a61c752383a7c22dfa74b9ca579327c9b51259c7c262606dbb25358412bcff",
+    "threshold_sensitivity.csv": "bd4d6f69e70c20aca4aa9e7f327ff00166cb865a7cd71ef39f41017810007d45",
+    "validation_checks.json": "f4ffeabf2141b193ffefb6af7fd6a2435db85103a01c81baf746f76e9de600db",
+    "whole_series.parquet": "fcb22a78788f93c6710021210a150c280a8ebef6cb5d4130cddc46e0512ca4e4",
+    "whole_series_split_counts.csv": "290df1fc50d8d0496cf130033d9fa184d3710256e265c365883e521fc1ff9cb9"
+  }
+}

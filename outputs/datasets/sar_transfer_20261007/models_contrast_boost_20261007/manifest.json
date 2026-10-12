@@ -1,0 +1,15 @@
+{
+  "method": "XGBoost molecular contrast, assay description, assay-A uncertainty, optional assay-pair prior",
+  "model_selection": "Choose pair-prior inclusion and depth by validation AP; early stop on validation log-loss",
+  "train_pair_prior": "Leave-one-comparison-out smoothed prior; heldout prior from training labels only",
+  "source_sha256": "d8d466c1df0bc122674d606e54995cc922d69a0942378bbbfd5b20181967d525",
+  "code_sha256": "12c36f5751ba3c9c755f603104d5cd061227d0cb1bb8aeff89c9a74a8902f33b",
+  "seeds": [
+    17,
+    23,
+    41,
+    71,
+    101
+  ],
+  "xgboost_version": "3.0.5"
+}
